@@ -1,5 +1,7 @@
 # F.O.R.G.E.
 
+<img src="F.O.R.G.E..png" alt="F.O.R.G.E. Logo" width="120"/>
+
 ## Financial Oversight & Resource Governance Engine
 
 *"In a world where transparency is the ultimate weapon against corruption, F.O.R.G.E. was born from the ashes of failed promises and stolen dreams."*
