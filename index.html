@@ -12,218 +12,285 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #ffffff;
-            color: #1d1d1f;
+            background-color: #0A0A0A;
+            color: #EAEAEA;
         }
         .section-title {
-            @apply text-sm font-semibold tracking-widest text-gray-500 uppercase;
+            @apply text-sm font-semibold tracking-widest text-cyan-400 uppercase;
         }
-        .headline {
-            @apply text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900;
+        .hero-section {
+            position: relative;
+            overflow: hidden;
         }
-        .sub-headline {
-            @apply mt-4 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto;
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
         }
         .feature-card {
-            @apply bg-slate-50/70 border border-slate-200 rounded-2xl p-8 transition-transform transform-gpu hover:scale-[1.02] hover:shadow-xl;
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            transition: all 0.3s ease-in-out;
+            backdrop-filter: blur(10px);
+        }
+        .feature-card:hover {
+            transform: translateY(-8px);
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.2);
         }
         .code-block {
-            @apply bg-gray-900 text-gray-300 font-mono text-sm rounded-xl p-6 my-6 whitespace-pre-wrap;
+            @apply bg-black/50 border border-gray-800 text-gray-300 font-mono text-sm rounded-xl p-6 my-6 whitespace-pre-wrap;
         }
         /* Scroll Animation */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            transform: translateY(40px);
+            transition: opacity 1.2s cubic-bezier(0.165, 0.84, 0.44, 1), transform 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
         .reveal.visible {
             opacity: 1;
             transform: translateY(0);
         }
-
-        /* Remove Accordion Styles */
     </style>
 </head>
 <body class="antialiased">
 
     <!-- Header -->
-    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200">
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/50 backdrop-blur-xl border-b border-gray-800">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <svg class="h-8 w-8 text-gray-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <svg class="h-8 w-8 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#1DC0D9">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
                 </svg>
-                <span class="text-xl font-bold tracking-tight">F.O.R.G.E.</span>
+                <span class="text-xl font-bold tracking-tight text-white">F.O.R.G.E.</span>
             </div>
-            <a href="#contribute" class="px-4 py-2 text-sm font-semibold text-white bg-gray-900 rounded-full hover:bg-gray-700 transition-colors">Join the Resistance</a>
+            <a href="#contribute" class="px-5 py-2.5 text-sm font-semibold text-black bg-cyan-400 rounded-full hover:bg-white transition-colors shadow-[0_0_20px_rgba(56,189,248,0.5)]">Join the Resistance</a>
         </nav>
     </header>
 
     <main>
         <!-- Hero Section -->
-        <section class="text-center py-20 lg:py-32">
-            <div class="container mx-auto px-6">
-                <svg class="mx-auto mb-8 h-24 w-24 md:h-32 md:w-32" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
-                </svg>
-
-                <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter text-gray-900">
-                    Governance, <br>Encoded.
+        <section class="text-center hero-section h-screen flex flex-col items-center justify-center">
+            <canvas id="hero-canvas"></canvas>
+            <div class="container mx-auto px-6 relative z-10">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter text-white">
+                    Governance,<br>Immutable.
                 </h1>
-                <p class="mt-6 text-lg md:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto">
-                    F.O.R.G.E. is the Financial Oversight & Resource Governance Engine that makes corruption obsolete.
+                <p class="mt-8 text-lg md:text-xl lg:text-2xl text-gray-300 max-w-3xl mx-auto">
+                    The Financial Oversight & Resource Governance Engine. <br>Corruption is now a legacy bug.
                 </p>
+                <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#dashboard" class="px-6 py-3 text-base font-semibold text-black bg-cyan-400 rounded-full hover:bg-white transition-colors shadow-[0_0_20px_rgba(56,189,248,0.5)]">Launch Live Dashboard</a>
+                    <a href="#case-studies" class="px-6 py-3 text-base font-semibold text-white bg-transparent border border-gray-600 rounded-full hover:bg-gray-800 hover:border-gray-500 transition-colors">See Real-World Impact</a>
+                </div>
             </div>
         </section>
 
         <!-- Mission Briefing -->
-        <section class="py-20 lg:py-40 bg-slate-50 relative overflow-hidden">
-            <div class="container mx-auto px-6 text-center reveal relative z-10">
-                <p class="section-title">🌍 Mission Briefing</p>
-                <h2 class="text-5xl md:text-7xl font-extrabold tracking-tighter text-gray-900 mt-4">Code, not corruption.</h2>
-                <p class="mt-6 text-lg md:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto">
+        <section class="py-24 lg:py-40 bg-black">
+            <div class="container mx-auto px-6 text-center reveal">
+                <p class="section-title">MISSION BRIEFING</p>
+                <h2 class="text-4xl md:text-6xl font-extrabold tracking-tighter text-white mt-4">Code, not corruption.</h2>
+                <p class="mt-6 text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
                     In 2047, development funds can no longer vanish. We built an autonomous system of smart contracts to ensure resources reach their destination, defended by cryptographic truth.
                 </p>
             </div>
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-slate-200/50 -z-0" aria-hidden="true">
-                <svg class="w-[40rem] h-[40rem]" fill="none" viewBox="0 0 24 24" stroke-width="0.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
-                </svg>
+        </section>
+
+        <!-- Case Studies Section -->
+        <section id="case-studies" class="py-16 lg:py-24">
+            <div class="container mx-auto px-6 reveal">
+                <div class="text-center pb-16">
+                    <p class="section-title">CASE STUDIES: REAL-WORLD IMPACT</p>
+                    <h2 class="text-4xl md:text-6xl font-extrabold tracking-tighter text-white mt-4">From Theory to Reality.</h2>
+                    <p class="mt-6 text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
+                        Corruption isn't abstract. It has real victims. Here’s how F.O.R.G.E. would rewrite the story in common scenarios of graft.
+                    </p>
+                </div>
+                <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Case Study 1 -->
+                    <div class="feature-card text-left !p-0 overflow-hidden">
+                        <div class="p-8">
+                            <h3 class="text-xl font-bold text-white">The Ghost Highway Project</h3>
+                            <p class="mt-3 text-gray-400">A $50 million contract for a new highway is awarded. After an initial payment of $20 million, the contractor vanishes. The funds are gone, and not a single mile of road is built.</p>
+                        </div>
+                        <div class="bg-black/40 p-8 border-t border-gray-800">
+                             <h4 class="font-semibold text-cyan-400">The F.O.R.G.E. Solution</h4>
+                             <p class="mt-3 text-gray-300">The contract is a milestone-based smart contract. Funds are only released as the Reality Anchoring System verifies construction progress via satellite imagery and DePIN sensors. The initial payment is locked until 10% of the road is verifiably complete, preventing the theft entirely.</p>
+                        </div>
+                    </div>
+                    <!-- Case Study 2 -->
+                    <div class="feature-card text-left !p-0 overflow-hidden">
+                        <div class="p-8">
+                             <h3 class="text-xl font-bold text-white">Diverted Medical Supplies</h3>
+                             <p class="mt-3 text-gray-400">An international aid shipment of life-saving vaccines arrives in-country but never reaches the rural clinics it was destined for. The supplies are sold on the black market by corrupt officials.</p>
+                        </div>
+                        <div class="bg-black/40 p-8 border-t border-gray-800">
+                             <h4 class="font-semibold text-cyan-400">The F.O.R.G.E. Solution</h4>
+                             <p class="mt-3 text-gray-300">Each vaccine vial is tracked on the Neural Transparency Grid. Payment to the logistics firm is only finalized when the clinic director provides biometric sign-off upon delivery, confirmed by the Reality Anchoring System. The entire supply chain is transparent and auditable.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Core Systems -->
-                <section class="py-16 lg:py-24">
+        <!-- Live Dashboard -->
+        <section id="dashboard" class="py-16 lg:py-24 bg-black">
+            <div class="container mx-auto px-6 reveal">
+                <div class="text-center pb-16">
+                    <p class="section-title">LIVE DASHBOARD</p>
+                    <h2 class="text-4xl md:text-6xl font-extrabold tracking-tighter text-white mt-4">Transparency in Real-Time.</h2>
+                    <p class="mt-6 text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
+                        This is a simulated view of the F.O.R.G.E. interface, tracking the flow of funds and project milestones for a live initiative. Every transaction is verifiable on the public ledger.
+                    </p>
+                </div>
+
+                <!-- Dashboard UI -->
+                <div class="max-w-6xl mx-auto bg-black/50 border border-gray-800 rounded-2xl shadow-2xl shadow-cyan-500/10 overflow-hidden">
+                    <!-- Dashboard Header -->
+                    <div class="p-6 border-b border-gray-800 flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                        <div>
+                            <h3 class="font-bold text-white text-xl">Project: Kibera Solar Grid Initiative</h3>
+                            <p class="text-sm text-gray-400 mt-1 sm:mt-0">ID: <span class="font-mono">0x7A2b...dE9f</span></p>
+                        </div>
+                        <div class="flex items-center space-x-2 mt-4 sm:mt-0">
+                             <span class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
+                             <span class="text-green-400 font-semibold">LIVE</span>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard Body -->
+                    <div class="grid md:grid-cols-3">
+                        <!-- Main Content -->
+                        <div class="md:col-span-2 p-6">
+                            <h4 class="text-lg font-semibold text-white mb-4">Financials Overview</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+                                <div class="bg-gray-900/50 p-4 rounded-lg">
+                                    <p class="text-gray-400 text-sm">Total Allocated</p>
+                                    <p class="text-2xl font-bold text-white mt-1">$5,000,000</p>
+                                </div>
+                                 <div class="bg-gray-900/50 p-4 rounded-lg">
+                                    <p class="text-gray-400 text-sm">Disbursed</p>
+                                    <p class="text-2xl font-bold text-cyan-400 mt-1">$1,850,000</p>
+                                </div>
+                                 <div class="bg-gray-900/50 p-4 rounded-lg">
+                                    <p class="text-gray-400 text-sm">Remaining</p>
+                                    <p class="text-2xl font-bold text-white mt-1">$3,150,000</p>
+                                </div>
+                            </div>
+
+                            <h4 class="text-lg font-semibold text-white mt-8 mb-4">Milestone Progress</h4>
+                            <div>
+                                <p class="text-sm text-gray-300 mb-2">Current: Milestone 2/5 - Panel Installation</p>
+                                <div class="w-full bg-gray-800 rounded-full h-4">
+                                    <div class="bg-cyan-500 h-4 rounded-full" style="width: 40%"></div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Sidebar / Transaction Feed -->
+                        <div class="md:col-span-1 p-6 border-t md:border-t-0 md:border-l border-gray-800">
+                            <h4 class="text-lg font-semibold text-white mb-4">Live Transaction Feed</h4>
+                            <div class="space-y-4 text-sm font-mono">
+                                <div class="text-green-400">
+                                    <p>> Payment Confirmed: M2.1</p>
+                                    <p class="text-gray-500 text-xs">> TX: 0x...a4f3 | -$150,000</p>
+                                </div>
+                                <div class="text-green-400">
+                                    <p>> Payment Confirmed: M2.0</p>
+                                    <p class="text-gray-500 text-xs">> TX: 0x...c8e1 | -$200,000</p>
+                                </div>
+                                <div class="text-gray-400">
+                                    <p>> Milestone 1 Verified</p>
+                                     <p class="text-gray-500 text-xs">> Oracle: Chainlink | DePIN: OK</p>
+                                </div>
+                                <div class="text-green-400">
+                                     <p>> Payment Confirmed: M1.5</p>
+                                    <p class="text-gray-500 text-xs">> TX: 0x...b9d2 | -$500,000</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+         <!-- Core Systems -->
+        <section class="py-16 lg:py-24 bg-black/50">
             <div class="container mx-auto px-6 text-center reveal">
                 <div class="pb-16 lg:pb-24">
-                    <p class="section-title">⚡ Core Systems</p>
-                    <h2 class="text-5xl md:text-7xl font-extrabold tracking-tighter text-gray-900 mt-4">An Unbreakable Chain of Accountability.</h2>
-                    <p class="mt-6 text-lg md:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto">
-                        F.O.R.G.E. operates on three interconnected systems, each engineered to eliminate loopholes and enforce transparency from start to finish.
+                    <p class="section-title">CORE SYSTEMS</p>
+                    <h2 class="text-4xl md:text-6xl font-extrabold tracking-tighter text-white mt-4">An Unbreakable Chain of Accountability.</h2>
+                    <p class="mt-6 text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
+                        F.O.R.G.E. operates on three interconnected systems, engineered to eliminate loopholes and enforce radical transparency.
                     </p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <!-- Card 1: Fund Allocation Matrix -->
                     <div class="feature-card text-left">
-                        <div class="bg-green-100 text-green-700 rounded-lg w-12 h-12 flex items-center justify-center">
+                        <div class="bg-cyan-900/50 text-cyan-400 rounded-lg w-12 h-12 flex items-center justify-center border border-cyan-400/30">
                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.286zm0 13.036h.008v.008h-.008v-.008z" /></svg>
                         </div>
-                        <h3 class="text-2xl font-bold mt-6">Fund Allocation Matrix</h3>
-                        <ul class="mt-4 text-left space-y-3 text-gray-600 border-t border-slate-200 pt-4">
-                            <li><strong class="text-gray-800">Smart Contracts:</strong> Self-executing funds that eliminate middlemen.</li>
-                            <li><strong class="text-gray-800">Geofenced Funds:</strong> Locked to specific projects, not private jets.</li>
-                            <li><strong class="text-gray-800">Milestone-Based Release:</strong> Payments triggered by verified progress.</li>
-                            <li><strong class="text-gray-800">Auto-Clawback:</strong> Instantly recovers funds if fraud is detected.</li>
-                        </ul>
+                        <h3 class="text-2xl font-bold mt-6 text-white">Fund Allocation Matrix</h3>
+                        <p class="mt-2 text-gray-400">Self-executing contracts that disburse funds based on verified milestones, eliminating middlemen and graft.</p>
                     </div>
                     <!-- Card 2: Neural Transparency Grid -->
                     <div class="feature-card text-left">
-                         <div class="bg-blue-100 text-blue-700 rounded-lg w-12 h-12 flex items-center justify-center">
+                         <div class="bg-cyan-900/50 text-cyan-400 rounded-lg w-12 h-12 flex items-center justify-center border border-cyan-400/30">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639l4.43-4.44a.997.997 0 011.41 0l4.43 4.44a.997.997 0 010 1.41l-4.43 4.44a.997.997 0 01-1.41 0l-4.43-4.44zM12 2.036a1.012 1.012 0 01.639 0l4.43 4.44a.997.997 0 010 1.41l-4.43 4.44a.997.997 0 01-1.41 0l-4.43-4.44a.997.997 0 010-1.41l4.43-4.44zM12 12.036a1.012 1.012 0 01.639 0l4.43 4.44a.997.997 0 010 1.41l-4.43 4.44a.997.997 0 01-1.41 0l-4.43-4.44a.997.997 0 010-1.41l4.43-4.44z" /></svg>
                         </div>
-                        <h3 class="text-2xl font-bold mt-6">Neural Transparency Grid</h3>
-                         <ul class="mt-4 text-left space-y-3 text-gray-600 border-t border-slate-200 pt-4">
-                            <li><strong class="text-gray-800">Public Ledger:</strong> Every transaction is broadcast and immutable.</li>
-                            <li><strong class="text-gray-800">Zero-Knowledge Audits:</strong> Full compliance without revealing sensitive data.</li>
-                            <li><strong class="text-gray-800">Citizen Verification:</strong> Community nodes ensure decentralized oversight.</li>
-                            <li><strong class="text-gray-800">AI Fraud Detection:</strong> Proactively identifies and flags corruption patterns.</li>
-                        </ul>
+                        <h3 class="text-2xl font-bold mt-6 text-white">Neural Transparency Grid</h3>
+                         <p class="mt-2 text-gray-400">A public, immutable ledger where every transaction is broadcast for all to see, audited by AI for anomalies.</p>
                     </div>
                     <!-- Card 3: Reality Anchoring System -->
                     <div class="feature-card text-left">
-                        <div class="bg-purple-100 text-purple-700 rounded-lg w-12 h-12 flex items-center justify-center">
+                        <div class="bg-cyan-900/50 text-cyan-400 rounded-lg w-12 h-12 flex items-center justify-center border border-cyan-400/30">
                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" /></svg>
                         </div>
-                        <h3 class="text-2xl font-bold mt-6">Reality Anchoring System</h3>
-                         <ul class="mt-4 text-left space-y-3 text-gray-600 border-t border-slate-200 pt-4">
-                            <li><strong class="text-gray-800">Oracle Integration:</strong> Connects smart contracts to real-world data.</li>
-                            <li><strong class="text-gray-800">DePIN Verification:</strong> Proves physical infrastructure actually exists.</li>
-                            <li><strong class="text-gray-800">Biometric Access:</strong> Ensures only authorized individuals can access funds.</li>
-                            <li><strong class="text-gray-800">Supply Chain Tracking:</strong> End-to-end documentation from source to delivery.</li>
-                        </ul>
+                        <h3 class="text-2xl font-bold mt-6 text-white">Reality Anchoring System</h3>
+                         <p class="mt-2 text-gray-400">Using oracles and DePIN, we connect smart contracts to real-world data to verify physical progress.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Tech Specs -->
-        <section class="py-16 lg:py-24 bg-slate-50">
+        <section class="py-16 lg:py-24 bg-black/50">
             <div class="container mx-auto px-6 reveal">
                 <div class="text-center pb-16">
-                    <p class="section-title">🔬 Technical Specifications</p>
-                    <h2 class="text-5xl md:text-7xl font-extrabold tracking-tighter text-gray-900 mt-4">Engineered for a revolution.</h2>
-                    <p class="mt-6 text-lg md:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto">
+                    <p class="section-title">TECHNICAL SPECIFICATIONS</p>
+                    <h2 class="text-4xl md:text-6xl font-extrabold tracking-tighter text-white mt-4">Engineered for a revolution.</h2>
+                    <p class="mt-6 text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
                         Built on a foundation of speed, security, and quantum-resistant cryptography to stay ahead of the curve.
                     </p>
                 </div>
                 <div class="max-w-4xl mx-auto">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-center">
-                        <div class="bg-white/50 border border-slate-200 p-6 rounded-2xl">
-                            <p class="text-sm font-semibold text-gray-500 uppercase tracking-wider">Blockchain</p>
-                            <p class="text-xl lg:text-2xl font-bold text-gray-900 mt-1">Hedera Hashgraph</p>
+                        <div class="bg-gray-900/50 border border-gray-800 p-6 rounded-2xl">
+                            <p class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Blockchain</p>
+                            <p class="text-xl lg:text-2xl font-bold text-white mt-1">Hedera Hashgraph</p>
                         </div>
-                         <div class="bg-white/50 border border-slate-200 p-6 rounded-2xl">
-                            <p class="text-sm font-semibold text-gray-500 uppercase tracking-wider">Consensus</p>
-                            <p class="text-xl lg:text-2xl font-bold text-gray-900 mt-1">Asynchronous BFT</p>
+                         <div class="bg-gray-900/50 border border-gray-800 p-6 rounded-2xl">
+                            <p class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Consensus</p>
+                            <p class="text-xl lg:text-2xl font-bold text-white mt-1">Asynchronous BFT</p>
                         </div>
-                        <div class="bg-white/50 border border-slate-200 p-6 rounded-2xl">
-                            <p class="text-sm font-semibold text-gray-500 uppercase tracking-wider">Throughput</p>
-                            <p class="text-xl lg:text-2xl font-bold text-gray-900 mt-1">10,000+ TPS</p>
-                            <p class="text-xs text-gray-500 mt-1">(Corruption moves fast)</p>
+                        <div class="bg-gray-900/50 border border-gray-800 p-6 rounded-2xl">
+                            <p class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Throughput</p>
+                            <p class="text-xl lg:text-2xl font-bold text-white mt-1">10,000+ TPS</p>
                         </div>
-                        <div class="bg-white/50 border border-slate-200 p-6 rounded-2xl">
-                            <p class="text-sm font-semibold text-gray-500 uppercase tracking-wider">Finality</p>
-                            <p class="text-xl lg:text-2xl font-bold text-gray-900 mt-1">3-5 seconds</p>
-                             <p class="text-xs text-gray-500 mt-1">(Faster than a promise)</p>
+                        <div class="bg-gray-900/50 border border-gray-800 p-6 rounded-2xl">
+                            <p class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Finality</p>
+                            <p class="text-xl lg:text-2xl font-bold text-white mt-1">3-5 seconds</p>
                         </div>
-                        <div class="bg-white/50 border border-slate-200 p-6 rounded-2xl col-span-1 sm:col-span-2 lg:col-span-2">
-                            <p class="text-sm font-semibold text-gray-500 uppercase tracking-wider">Energy Consumption</p>
-                            <p class="text-xl lg:text-2xl font-bold text-gray-900 mt-1">&lt;0.001 kWh / transaction</p>
-                            <p class="text-xs text-gray-500 mt-1">(Efficiency is key)</p>
-                        </div>
-                    </div>
-                    <div class="grid md:grid-cols-2 gap-x-12 gap-y-10 mt-16 text-gray-700">
-                        <div>
-                            <h4 class="text-xl font-bold text-gray-900">Smart Contract Architecture</h4>
-                            <div class="mt-6 space-y-5">
-                                <div class="flex items-start">
-                                    <div class="flex-shrink-0 h-6 w-6 text-green-600"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.286zm0 13.036h.008v.008h-.008v-.008z" /></svg></div>
-                                    <p class="ml-4"><strong class="text-gray-900">Rust-Based Environment:</strong> Built for maximum security and performance.</p>
-                                </div>
-                                <div class="flex items-start">
-                                    <div class="flex-shrink-0 h-6 w-6 text-green-600"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0011.667 0l3.181-3.183m-4.991-2.691L7.5 5.999m11.541 2.691a8.25 8.25 0 01-11.667 0l-3.181 3.183" /></svg></div>
-                                    <p class="ml-4"><strong class="text-gray-900">Upgradeable Proxies:</strong> Allowing governance models to evolve without risk.</p>
-                                </div>
-                                <div class="flex items-start">
-                                    <div class="flex-shrink-0 h-6 w-6 text-green-600"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m-7.5-2.962A3 3 0 0115 9.185V18a3 3 0 01-5.121.878l-2.43-2.43a3 3 0 010-4.242T9.185 9.185z" /></svg></div>
-                                    <p class="ml-4"><strong class="text-gray-900">Multi-Sig Treasury:</strong> Requiring consensus for fund management to prevent abuse.</p>
-                                </div>
-                                <div class="flex items-start">
-                                    <div class="flex-shrink-0 h-6 w-6 text-green-600"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
-                                    <p class="ml-4"><strong class="text-gray-900">Time-Locked Vesting:</strong> Scheduling fund release based on performance metrics.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <h4 class="text-xl font-bold text-gray-900">Integration Protocols</h4>
-                            <div class="mt-6 space-y-5">
-                               <div class="flex items-start">
-                                    <div class="flex-shrink-0 h-6 w-6 text-green-600"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" /></svg></div>
-                                    <p class="ml-4"><strong class="text-gray-900">Mobile-First Design:</strong> Compatible with M-Pesa for accessible field use.</p>
-                                </div>
-                                <div class="flex items-start">
-                                    <div class="flex-shrink-0 h-6 w-6 text-green-600"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12.75 19.5v-.75a7.5 7.5 0 00-7.5-7.5H4.5m0-6.75h.75c7.87 0 14.25 6.38 14.25 14.25v.75M6 18.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" /></svg></div>
-                                    <p class="ml-4"><strong class="text-gray-900">Satellite Connectivity:</strong> Ensuring access and operation in remote regions.</p>
-                                </div>
-                                <div class="flex items-start">
-                                    <div class="flex-shrink-0 h-6 w-6 text-green-600"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" /></svg></div>
-                                    <p class="ml-4"><strong class="text-gray-900">Quantum-Resistant Crypto:</strong> Future-proofed against next-generation threats.</p>
-                                </div>
-                                <div class="flex items-start">
-                                    <div class="flex-shrink-0 h-6 w-6 text-green-600"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" /></svg></div>
-                                    <p class="ml-4"><strong class="text-gray-900">Cross-Chain Bridges:</strong> Designed for interoperability with other networks.</p>
-                                </div>
-                            </div>
+                        <div class="bg-gray-900/50 border border-gray-800 p-6 rounded-2xl col-span-1 sm:col-span-2 lg:col-span-2">
+                            <p class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Energy Consumption</p>
+                            <p class="text-xl lg:text-2xl font-bold text-white mt-1">&lt;0.001 kWh / transaction</p>
                         </div>
                     </div>
                 </div>
@@ -234,75 +301,73 @@
         <section class="py-16 lg:py-24">
             <div class="container mx-auto px-6 text-center reveal">
                 <div class="pb-16 lg:pb-24">
-                    <p class="section-title">🎯 Deployment Zones</p>
-                    <h2 class="text-5xl md:text-7xl font-extrabold tracking-tighter text-gray-900 mt-4">Where code meets the ground.</h2>
-                    <p class="mt-6 text-lg md:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto">
-                        Our revolution is rolling out in three strategic phases, targeting critical infrastructure where transparency matters most.
+                    <p class="section-title">DEPLOYMENT ZONES</p>
+                    <h2 class="text-4xl md:text-6xl font-extrabold tracking-tighter text-white mt-4">Where code meets the ground.</h2>
+                    <p class="mt-6 text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
+                        Our revolution is rolling out in strategic phases, targeting critical infrastructure where transparency matters most.
                     </p>
                 </div>
-                <div class="max-w-4xl mx-auto">
-                    <div class="relative border-l-2 border-slate-200">
-                        <!-- Phase 1 -->
-                        <div class="mb-12 ml-8">
-                            <span class="absolute -left-4 flex items-center justify-center w-8 h-8 bg-slate-200 rounded-full ring-8 ring-white">1</span>
-                            <h3 class="text-xl font-bold text-left text-gray-900">The Awakening</h3>
-                            <p class="text-left text-gray-600 mt-1">Powering rural communities with transparent solar projects.</p>
-                        </div>
-                        <!-- Phase 2 -->
-                        <div class="mb-12 ml-8">
-                            <span class="absolute -left-4 flex items-center justify-center w-8 h-8 bg-slate-200 rounded-full ring-8 ring-white">2</span>
-                            <h3 class="text-xl font-bold text-left text-gray-900">The Expansion</h3>
-                            <p class="text-left text-gray-600 mt-1">Ensuring integrity in healthcare and education infrastructure.</p>
-                        </div>
-                        <!-- Phase 3 -->
-                        <div class="ml-8">
-                            <span class="absolute -left-4 flex items-center justify-center w-8 h-8 bg-slate-200 rounded-full ring-8 ring-white">3</span>
-                            <h3 class="text-xl font-bold text-left text-gray-900">The Revolution</h3>
-                            <p class="text-left text-gray-600 mt-1">Integrating with national budgets for full transparency.</p>
-                        </div>
+                <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Phase 1 -->
+                    <div class="text-left p-8 bg-gray-900/50 rounded-2xl border border-gray-800">
+                        <p class="text-sm font-semibold text-cyan-400">PHASE 01</p>
+                        <h3 class="text-2xl font-bold text-white mt-2">The Awakening</h3>
+                        <p class="text-gray-400 mt-3">Powering rural communities with transparent solar projects, ensuring every dollar funds a watt of power.</p>
+                    </div>
+                    <!-- Phase 2 -->
+                    <div class="text-left p-8 bg-gray-900/50 rounded-2xl border border-gray-800">
+                        <p class="text-sm font-semibold text-cyan-400">PHASE 02</p>
+                        <h3 class="text-2xl font-bold text-white mt-2">The Expansion</h3>
+                        <p class="text-gray-400 mt-3">Rebuilding trust by ensuring integrity in healthcare and education infrastructure.</p>
+                    </div>
+                    <!-- Phase 3 -->
+                    <div class="text-left p-8 bg-gray-900/50 rounded-2xl border border-gray-800">
+                        <p class="text-sm font-semibold text-cyan-400">PHASE 03</p>
+                        <h3 class="text-2xl font-bold text-white mt-2">The Revolution</h3>
+                        <p class="text-gray-400 mt-3">Integrating F.O.R.G.E. with national budgets for complete, verifiable fiscal transparency.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Impact -->
-        <section class="py-20 lg:py-32 bg-gray-900 text-white">
+        <section class="py-24 lg:py-32 text-white bg-black/50">
             <div class="container mx-auto px-6 text-center reveal">
-                 <p class="section-title !text-gray-400">🌟 Impact Metrics</p>
-                 <h2 class="text-5xl md:text-7xl font-extrabold tracking-tighter !text-white mt-4">The data doesn't lie.</h2>
-                 <p class="mt-6 text-lg md:text-xl lg:text-2xl text-gray-300 max-w-3xl mx-auto">
-                    We measure success in verifiable data points. This is the quantifiable impact of incorruptible governance.
+                 <p class="section-title">IMPACT METRICS</p>
+                 <h2 class="text-4xl md:text-6xl font-extrabold tracking-tighter text-white mt-4">The data doesn't lie.</h2>
+                 <p class="mt-6 text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
+                    Success is not a headline, it's a verifiable data point. This is the quantifiable impact of incorruptible governance.
                  </p>
                  <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
                     <div>
-                        <p class="text-4xl lg:text-5xl font-bold text-green-400">70%</p>
-                        <p class="mt-2 text-gray-300">Target Corruption Reduction</p>
+                        <p class="text-4xl lg:text-5xl font-bold text-cyan-400">70%</p>
+                        <p class="mt-2 text-gray-400">Target Corruption Reduction</p>
                     </div>
                      <div>
-                        <p class="text-4xl lg:text-5xl font-bold text-green-400">100%</p>
-                        <p class="mt-2 text-gray-300">Transaction Visibility</p>
+                        <p class="text-4xl lg:text-5xl font-bold text-cyan-400">100%</p>
+                        <p class="mt-2 text-gray-400">Transaction Visibility</p>
                     </div>
                      <div>
-                        <p class="text-4xl lg:text-5xl font-bold text-green-400">90%</p>
-                        <p class="mt-2 text-gray-300">Reduced Admin Overhead</p>
+                        <p class="text-4xl lg:text-5xl font-bold text-cyan-400">90%</p>
+                        <p class="mt-2 text-gray-400">Reduced Admin Overhead</p>
                     </div>
                      <div>
-                        <p class="text-4xl lg:text-5xl font-bold text-green-400">High</p>
-                        <p class="mt-2 text-gray-300">Increase in Project Completion</p>
+                        <p class="text-4xl lg:text-5xl font-bold text-cyan-400">High</p>
+                        <p class="mt-2 text-gray-400">Project Completion Rate</p>
                     </div>
                  </div>
             </div>
         </section>
 
         <!-- Resistance -->
-        <section class="py-20 lg:py-40">
+        <section class="py-24 lg:py-40">
             <div class="container mx-auto px-6 text-center reveal">
-                 <p class="section-title">⚔️ THE RESISTANCE</p>
-                 <h2 class="text-5xl md:text-7xl font-extrabold tracking-tighter text-gray-900 mt-4 max-w-5xl mx-auto leading-tight">
+                 <p class="section-title">THE RESISTANCE</p>
+                 <h2 class="text-4xl md:text-6xl font-extrabold tracking-tighter text-white mt-4 max-w-5xl mx-auto leading-tight">
                     "Corruption is just the way things work."
                  </h2>
-                 <p class="mt-6 text-3xl font-semibold text-gray-900">We have a better way.</p>
-                 <div class="mt-12 code-block max-w-md mx-auto !text-green-400">FORGE_STATUS: OPERATIONAL
+                 <p class="mt-6 text-3xl font-semibold text-white">Not anymore.</p>
+                 <div class="mt-12 code-block max-w-md mx-auto !text-cyan-400">FORGE_STATUS: OPERATIONAL
 CORRUPTION_LEVEL: DECLINING
 HOPE_INDEX: RISING
 REVOLUTION_PROGRESS: 15% AND CLIMBING</div>
@@ -310,44 +375,20 @@ REVOLUTION_PROGRESS: 15% AND CLIMBING</div>
         </section>
 
         <!-- Contributing -->
-        <section id="contribute" class="py-16 lg:py-24 bg-slate-50 border-t border-slate-200">
-            <div class="container mx-auto px-6 reveal">
-                <div class="text-center pb-16">
-                    <p class="section-title">🤝 Contributing</p>
-                    <h2 class="text-5xl md:text-7xl font-extrabold tracking-tighter text-gray-900 mt-4">Help us build the future.</h2>
-                    <p class="sub-headline mt-10">F.O.R.G.E. is open-source. Join the rebellion against corruption and contribute to a more transparent world.</p>
+        <section id="contribute" class="py-16 lg:py-24 bg-black/50 border-t border-gray-800">
+            <div class="container mx-auto px-6 reveal text-center">
+                <p class="section-title">CONTRIBUTING</p>
+                <h2 class="text-4xl md:text-6xl font-extrabold tracking-tighter text-white mt-4">Help build the future.</h2>
+                <p class="mt-6 text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">F.O.R.G.E. is open-source. Join the rebellion against corruption and contribute to a more transparent world.</p>
+                <div class="mt-12">
+                     <a href="#" class="px-6 py-3 text-base font-semibold text-black bg-cyan-400 rounded-full hover:bg-white transition-colors shadow-[0_0_20px_rgba(56,189,248,0.5)]">View on GitHub</a>
                 </div>
-
-<!--                <div class="grid md:grid-cols-2 gap-x-12 gap-y-8 max-w-5xl mx-auto">-->
-<!--                    <div>-->
-<!--                        <h3 class="text-xl font-bold text-gray-900">How to Contribute</h3>-->
-<!--                        <div class="code-block !bg-slate-800">-->
-<!--<span class="text-gray-500"># Fork the repository</span>-->
-<!--<span class="text-gray-500"># Create a feature branch</span>-->
-<!--git checkout -b feature/your-improvement-->
-<!--<span class="text-gray-500"># Make your changes</span>-->
-<!--<span class="text-gray-500"># Test with the demo</span>-->
-<!--npm run demo-->
-<!--<span class="text-gray-500"># Submit a pull request</span>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div>-->
-<!--                        <h3 class="text-xl font-bold text-gray-900">Areas We Need Help With</h3>-->
-<!--                        <ul class="mt-4 space-y-2 text-gray-700">-->
-<!--                           <li>🔧 <span class="font-semibold">Smart Contract Optimization</span> - Gas efficiency improvements</li>-->
-<!--                           <li>🎨 <span class="font-semibold">UI/UX Design</span> - Making the dashboard more intuitive</li>-->
-<!--                           <li>📱 <span class="font-semibold">Mobile Development</span> - Field verification app</li>-->
-<!--                           <li>🤖 <span class="font-semibold">AI/ML</span> - Fraud detection algorithms</li>-->
-<!--                           <li>📊 <span class="font-semibold">Data Analytics</span> - Impact measurement tools</li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
-<!--                </div>-->
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-400">
+    <footer class="bg-black text-gray-500">
         <div class="container mx-auto px-6 py-12">
             <div class="grid md:grid-cols-3 gap-8">
                 <div>
@@ -380,31 +421,85 @@ REVOLUTION_PROGRESS: 15% AND CLIMBING</div>
     </footer>
 
     <script>
-        // Simple scroll-reveal animation
+        // Scroll-reveal animation
         document.addEventListener("DOMContentLoaded", function() {
             const revealElements = document.querySelectorAll('.reveal');
-
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
-                        // Optional: unobserve after revealing to save resources
-                        // observer.unobserve(entry.target);
+                        observer.unobserve(entry.target);
                     }
                 });
-            }, {
-                threshold: 0.1
-            });
+            }, { threshold: 0.1 });
+            revealElements.forEach(elem => observer.observe(elem));
 
-            revealElements.forEach(elem => {
-                observer.observe(elem);
-            });
+            // Hero Canvas Animation
+            const canvas = document.getElementById('hero-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height, particles;
 
-            // REMOVED Accordion Logic
+            function init() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = canvas.parentElement.offsetHeight;
+                particles = [];
+                for (let i = 0; i < 50; i++) {
+                    particles.push(new Particle());
+                }
+            }
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.vx = (Math.random() - 0.5) * 0.5;
+                    this.vy = (Math.random() - 0.5) * 0.5;
+                    this.radius = Math.random() * 1.5;
+                }
+
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.x < 0 || this.x > width) this.vx *= -1;
+                    if (this.y < 0 || this.y > height) this.vy *= -1;
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(56, 189, 248, 0.5)';
+                    ctx.fill();
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dist = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y);
+                        if (dist < 100) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(56, 189, 248, ${1 - dist / 100})`;
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                requestAnimationFrame(animate);
+            }
+
+            init();
+            animate();
+            window.addEventListener('resize', init);
         });
     </script>
 </body>
 </html>
-
-
 

@@ -1,6 +1,6 @@
 # F.O.R.G.E.
 
-<img src="logo.png" alt="F.O.R.G.E. Logo" width="120"/>
+<img src="logo.svg" alt="F.O.R.G.E. Logo" width="120"/>
 
 ## Financial Oversight & Resource Governance Engine
 
