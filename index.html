@@ -188,6 +188,26 @@
         }
     }
 
+    #loader-container {
+        width: 100%;
+        text-align: center;
+    }
+
+    #loader-bar-container {
+        border: 1px solid var(--primary-color);
+        border-radius: 10px;
+        padding: 3px;
+        margin: 0 auto 10px;
+    }
+
+    #loader-bar {
+        background-color: var(--primary-color);
+        height: 10px;
+        border-radius: 5px;
+        width: 0%;
+        transition: width 0.1s linear;
+    }
+
     </style>
 </head>
 <body>
@@ -195,8 +215,13 @@
     <div id="bootloader">
         <img src="logo.svg" alt="F.O.R.G.E. Logo" class="w-32 h-32 mb-8 text-glow">
         <div class="w-full max-w-3xl">
-            <div id="boot-log" class="text-xl h-48 overflow-y-hidden text-left"></div>
-            <div id="loader-container" class="text-xl mt-4"></div>
+            <div id="boot-log" class="text-xl h-48 overflow-y-hidden text-center"></div>
+            <div id="loader-container" class="text-xl mt-4">
+                <div id="loader-bar-container">
+                    <div id="loader-bar"></div>
+                </div>
+                <span id="loader-text">LOADING...</span>
+            </div>
         </div>
         <span class="blinking-cursor text-xl mt-4">█</span>
     </div>

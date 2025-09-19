@@ -2,8 +2,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const bootloader = document.getElementById('bootloader');
     const mainContent = document.getElementById('main-content');
     const bootLog = document.getElementById('boot-log');
-    const loaderContainer = document.getElementById('loader-container');
-    const loaderWidth = 40;
+    const loaderBar = document.getElementById('loader-bar');
+    const loaderText = document.getElementById('loader-text');
 
     const bootMessages = [
         { text: 'INITIATING N.O.D.E. KERNEL...', delay: 100 },
@@ -30,16 +30,16 @@ document.addEventListener('DOMContentLoaded', function() {
             bootLog.scrollTop = bootLog.scrollHeight; // Auto-scroll
 
             // Update loader
-            const progress = Math.round(((messageIndex + 1) / bootMessages.length) * loaderWidth);
-            const bar = '[' + '#'.repeat(progress) + ' '.repeat(loaderWidth - progress) + ']';
-            loaderContainer.textContent = `LOADING... ${bar} ${Math.round(((messageIndex + 1) / bootMessages.length) * 100)}%`;
+            const percentage = Math.round(((messageIndex + 1) / bootMessages.length) * 100);
+            loaderBar.style.width = `${percentage}%`;
+            loaderText.textContent = `LOADING... ${percentage}%`;
 
             setTimeout(showBootMessage, bootMessages[messageIndex].delay);
             messageIndex++;
         } else {
              // Final loader update to 100%
-            const bar = '[' + '#'.repeat(loaderWidth) + ']';
-            loaderContainer.textContent = `LOAD COMPLETE. ${bar} 100%`;
+            loaderBar.style.width = '100%';
+            loaderText.textContent = 'LOAD COMPLETE. 100%';
             setTimeout(() => {
                 // Fade out bootloader
                 bootloader.style.opacity = '0';
