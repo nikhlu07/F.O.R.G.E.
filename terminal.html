@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F.O.R.G.E.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/svg+xml" href="logo.svg">
+    <style>
+    :root {
+        --primary-color: #F4A83B;
+        --background-color: #000000;
+        --glow-color: #F4A83B;
+    }
+
+    body {
+        font-family: 'VT323', monospace;
+        background-color: var(--background-color);
+        color: var(--primary-color);
+        text-shadow: 0 0 2px rgba(244, 168, 59, 0.5);
+        overflow-x: hidden;
+        background: #000;
+    }
+
+    body::before {
+        content: " ";
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: linear-gradient(to bottom, rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%);
+        background-size: 100% 3px;
+        z-index: 100;
+        pointer-events: none;
+        animation: flicker 0.15s infinite;
+    }
+
+    @keyframes flicker {
+      0% { opacity: 0.9; }
+      50% { opacity: 0.95; }
+      100% { opacity: 0.9; }
+    }
+
+    .text-glow {
+        color: var(--glow-color);
+        text-shadow: 0 0 3px var(--glow-color), 0 0 8px var(--glow-color), 0 0 15px var(--glow-color);
+    }
+
+    .window-panel {
+        border: 1px solid rgba(244, 168, 59, 0.4);
+        border-radius: 25px;
+        padding: 1.5rem;
+        background: rgba(30, 18, 5, 0.3);
+        backdrop-filter: blur(3px);
+        box-shadow: inset 0 0 25px rgba(244, 168, 59, 0.15), 0 0 25px rgba(244, 168, 59, 0.15);
+        position: relative;
+    }
+
+    .window-panel-title {
+        background-color: var(--primary-color);
+        color: var(--background-color);
+        padding: 0.15rem 0.75rem;
+        display: inline-flex;
+        align-items: center;
+        text-shadow: none;
+        margin-top: -2.5rem;
+        margin-left: 1rem;
+        margin-bottom: 1rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        border-radius: 8px;
+    }
+
+    .btn-retro {
+        background: transparent;
+        color: var(--primary-color);
+        text-shadow: none;
+        padding: 0.75rem 2rem;
+        border: 1px solid var(--primary-color);
+        box-shadow: inset 0 0 8px rgba(244, 168, 59, 0.3);
+        transition: all 0.2s ease-in-out;
+        text-transform: uppercase;
+        display: inline-block;
+        text-decoration: none;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50px;
+    }
+    .btn-retro:hover {
+        background: var(--primary-color);
+        color: var(--background-color);
+        box-shadow: 0 0 20px var(--primary-color);
+        text-shadow: none;
+    }
+
+    .section-divider {
+        color: var(--primary-color);
+        text-align: center;
+        font-size: 1.5rem;
+        text-shadow: 0 0 5px var(--primary-color);
+        letter-spacing: 0.5em;
+        opacity: 0.6;
+    }
+
+    @keyframes blink {
+        50% { opacity: 0; }
+    }
+
+    .blinking-cursor {
+         animation: blink 1s step-end infinite;
+    }
+
+    #bootloader {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background-color: #000; color: var(--primary-color); font-family: 'VT323', monospace;
+        z-index: 9999; padding: 2rem; overflow-y: hidden; display: flex; flex-direction: column;
+        justify-content: center; align-items: center;
+    }
+    #main-content { transition: opacity 0.5s ease-in; visibility: hidden; opacity: 0; }
+
+    footer a { transition: all 0.2s ease; padding: 0.25rem 0.5rem; border-radius: 5px; }
+    footer a:hover { background: var(--primary-color); color: var(--background-color); text-shadow: none; }
+
+    @keyframes pulse-glow {
+        0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px var(--glow-color)); }
+        50% { transform: scale(1.05); filter: drop-shadow(0 0 20px var(--glow-color)); }
+    }
+    .hero-logo { animation: pulse-glow 4s ease-in-out infinite; }
+
+    /* Timeline styles */
+    .timeline { position: relative; }
+    .timeline::after {
+        content: '';
+        position: absolute;
+        width: 2px;
+        background-color: rgba(244, 168, 59, 0.3);
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        margin-left: -1px;
+    }
+    .timeline-container {
+        padding: 10px 40px;
+        position: relative;
+        background-color: inherit;
+        width: 50%;
+    }
+    .timeline-container.left { left: 0; }
+    .timeline-container.right { left: 50%; }
+    .timeline-container::after {
+        content: '';
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        right: -8px;
+        background-color: var(--background-color);
+        border: 2px solid var(--primary-color);
+        top: 28px;
+        border-radius: 50%;
+        z-index: 1;
+    }
+    .timeline-container.right::after { left: -8px; }
+    .timeline-content {
+        position: relative;
+    }
+
+    @media screen and (max-width: 767px) {
+        .timeline::after {
+            left: 31px;
+            margin-left: 0;
+        }
+        .timeline-container {
+            width: 100%;a
+            padding-left: 70px;
+            padding-right: 25px;
+        }
+        .timeline-container.left, .timeline-container.right {
+            left: 0;
+        }
+        .timeline-container::after, .timeline-container.right::after {
+            left: 23px;
+            right: auto;
+        }
+    }
+
+    #loader-container {
+        width: 100%;
+        text-align: center;
+    }
+
+    #loader-bar-container {
+        border: 1px solid var(--primary-color);
+        border-radius: 10px;
+        padding: 3px;
+        margin: 0 auto 10px;
+    }
+
+    #loader-bar {
+        background-color: var(--primary-color);
+        height: 10px;
+        border-radius: 5px;
+        width: 0%;
+        transition: width 0.1s linear;
+    }
+
+    </style>
+</head>
+<body>
+
+    <div id="bootloader">
+        <img src="logo.svg" alt="F.O.R.G.E. Logo" class="w-32 h-32 mb-8 text-glow">
+        <div class="w-full max-w-3xl">
+            <div id="boot-log" class="text-xl h-48 overflow-y-hidden text-center"></div>
+            <div id="loader-container" class="text-xl mt-4">
+                <div id="loader-bar-container">
+                    <div id="loader-bar"></div>
+                </div>
+                <span id="loader-text">LOADING...</span>
+            </div>
+        </div>
+        <span class="blinking-cursor text-xl mt-4">█</span>
+    </div>
+
+    <div id="main-content">
+        <div class="container mx-auto px-6 py-8 text-xl">
+
+            <header class="py-16 md:py-24 text-center">
+                <img src="logo.png" alt="F.O.R.G.E. Logo" class="w-48 h-48 mx-auto mb-8 hero-logo">
+                <h1 class="text-6xl md:text-8xl uppercase text-glow mb-4" data-type-effect>
+                    F.O.R.G.E.
+                </h1>
+                <p class="text-2xl md:text-3xl mt-2" data-type-effect>
+                    Financial Oversight & Resource Governance Engine
+                </p>
+                <p class="max-w-3xl mx-auto mt-6 text-lg md:text-xl" data-type-effect>
+                    "In a world where transparency is the ultimate weapon against corruption, F.O.R.G.E. was born from the ashes of failed promises and stolen dreams."
+                </p>
+                <div class="mt-12" data-type-effect>
+                    <a href="#join" class="btn-retro text-2xl">[ JOIN THE RESISTANCE ]</a>
+                </div>
+            </header>
+
+            <div class="section-divider py-12"><pre>~·~·~·~·~·~·~·~·~·~</pre></div>
+
+            <section id="directive" class="py-12">
+                <div class="window-panel max-w-4xl mx-auto text-left">
+                    <div class="window-panel-title" data-type-effect>&gt; MISSION_BRIEFING.TXT</div>
+                    <p class="leading-relaxed" data-type-effect>The year is 2047. Africa has become the testing ground for humanity's greatest experiment: programmable governance. After decades of development funds vanishing into digital black holes, a coalition of rogue developers, reformed government officials, and AI ethicists created F.O.R.G.E.—the last hope for accountable resource distribution in an age where every satoshi matters.</p>
+                    <p class="leading-relaxed mt-4 font-bold" data-type-effect>F.O.R.G.E. isn't just software. It's a rebellion against the old world order, encoded in smart contracts and defended by cryptographic truth.</p>
+                </div>
+            </section>
+
+            <div class="section-divider py-12"><pre>~·~·~·~·~·~·~·~·~·~</pre></div>
+
+            <section id="protocols" class="py-12">
+                <h2 class="text-4xl uppercase text-glow mb-12 text-center" data-type-effect>&gt; DIR /CORE_SYSTEMS</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="window-panel">
+                        <div class="window-panel-title">MATRIX.DLL</div>
+                        <h3 class="text-2xl mb-2" data-type-effect>Quantum Fund Allocation Matrix</h3>
+                        <p data-type-effect>Self-executing funds locked to geofences and triggered by milestones. Corruption is not an option.</p>
+                    </div>
+                    <div class="window-panel">
+                        <div class="window-panel-title">GRID.SYS</div>
+                        <h3 class="text-2xl mb-2" data-type-effect>Neural Transparency Grid</h3>
+                        <p data-type-effect>Every transaction broadcast on a public ledger. AI-powered fraud detection and citizen-powered verification.</p>
+                    </div>
+                    <div class="window-panel">
+                        <div class="window-panel-title">ANCHOR.BAT</div>
+                        <h3 class="text-2xl mb-2" data-type-effect>Reality Anchoring System</h3>
+                        <p data-type-effect>Real-world data integration, biometric authorization, and supply chain tracking from origin to delivery.</p>
+                    </div>
+                </div>
+            </section>
+
+            <div class="section-divider py-12"><pre>~·~·~·~·~·~·~·~·~·~</pre></div>
+
+            <section id="architecture" class="py-12">
+                <div class="window-panel max-w-4xl mx-auto">
+                    <div class="window-panel-title" data-type-effect>&gt; VIEW TECH_SPECS.LOG</div>
+                    <pre class="text-lg md:text-xl lg:text-2xl text-glow my-4" style="line-height: 1.8; text-align: left; white-space: pre-wrap; word-break: break-all;">BLOCKCHAIN FOUNDATION: Hedera Hashgraph DLT
+CONSENSUS MECHANISM: Asynchronous Byzantine Fault Tolerance
+THROUGHPUT: 10,000+ TPS (Because corruption moves fast)
+FINALITY: 3-5 seconds (Faster than a politician's promise)
+ENERGY CONSUMPTION: <0.001 kWh per transaction
+SMART CONTRACTS: Rust-based, Upgradeable Proxies, Multi-sig Treasury</pre>
+                </div>
+            </section>
+
+            <div class="section-divider py-12"><pre>~·~·~·~·~·~·~·~·~·~</pre></div>
+
+            <section id="roadmap" class="py-12">
+                 <h2 class="text-4xl uppercase text-glow mb-20 text-center" data-type-effect>&gt; READ DEPLOYMENT_ZONES.LOG</h2>
+                 <div class="timeline max-w-4xl mx-auto">
+                    <div class="timeline-container left">
+                        <div class="timeline-content window-panel">
+                            <h3 class="text-2xl" data-type-effect>PHASE 1: THE AWAKENING</h3>
+                            <p class="mt-2 text-lg" data-type-effect>Rural electrification in Kenya & Ghana. Solar panel tracking and grid tokenization.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-container right">
+                        <div class="timeline-content window-panel">
+                            <h3 class="text-2xl" data-type-effect>PHASE 2: THE EXPANSION</h3>
+                            <p class="mt-2 text-lg" data-type-effect>Healthcare & education infrastructure. Vaccine distribution and school construction tracking.</p>
+                        </div>
+                    </div>
+                     <div class="timeline-container left">
+                        <div class="timeline-content window-panel">
+                            <h3 class="text-2xl" data-type-effect>PHASE 3: THE REVOLUTION</h3>
+                            <p class="mt-2 text-lg" data-type-effect>Full government budget integration. National infrastructure and social safety nets.</p>
+                        </div>
+                    </div>
+                 </div>
+            </section>
+
+            <div class="section-divider py-12"><pre>~·~·~·~·~·~·~·~·~·~</pre></div>
+
+            <section id="join" class="text-center py-12">
+                <h2 class="text-4xl uppercase text-glow mb-6" data-type-effect>&gt; JOIN_THE_RESISTANCE.EXE</h2>
+                <p class="max-w-2xl mx-auto mb-10" data-type-effect>"They said blockchain was too complex for governments. They said the people weren't ready for programmable money. They said corruption was just 'the way things work.' They were wrong."</p>
+                <div class="flex flex-col md:flex-row justify-center items-center gap-6">
+                    <a href="https://github.com/chandan989/F.O.R.G.E." target="_blank" class="btn-retro">[ FORK REPO ]</a>
+                    <a href="https://docs.forge-project.org" target="_blank" class="btn-retro">[ READ DOCS ]</a>
+                    <a href="https://discord.gg/forge" target="_blank" class="btn-retro">[ JOIN DISCORD ]</a>
+                </div>
+            </section>
+        </div>
+
+        <footer class="text-center py-8 mt-12 border-t-2" style="border-color: var(--primary-color);">
+            <p class="mb-4 text-xl">> Powered by Hedera Hashgraph</p>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-4 text-xl">
+                <a href="https://discord.gg/forge" target="_blank">Discord</a>
+                <a href="https://github.com/chandan989/F.O.R.G.E." target="_blank">GitHub</a>
+                <a href="https://docs.forge-project.org" target="_blank">Docs</a>
+                <a href="https://twitter.com/ForgeProtocol" target="_blank">Twitter</a>
+            </div>
+             <p class="text-base mt-6">> Built with ⚡ by rebels who believe code is law, and law should serve the people.</p>
+        </footer>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
