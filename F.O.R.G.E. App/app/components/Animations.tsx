@@ -3,6 +3,7 @@
 import { motion, useAnimation } from "framer-motion";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
+import Image from "next/image";
 
 export const LoadUpAnimation = () => {
   return (
@@ -17,7 +18,7 @@ export const LoadUpAnimation = () => {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, delay: 0.5 }}
       >
-        <img src="/logo.svg" alt="F.O.R.G.E. Logo" className="h-24" />
+        <Image src="/logo.svg" alt="F.O.R.G.E. Logo" width={96} height={96} className="h-24" />
       </motion.div>
     </motion.div>
   );

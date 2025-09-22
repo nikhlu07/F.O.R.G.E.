@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { LoadUpAnimation, Reveal } from "./components/Animations";
+import Image from "next/image";
 
 export default function Home() {
   useEffect(() => {
@@ -32,7 +33,7 @@ export default function Home() {
         if (this.x < 0 || this.x > width) this.vx *= -1;
         if (this.y < 0 || this.y > height) this.vy *= -1;
       }
-      draw() {
+      draw(ctx: CanvasRenderingContext2D) {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         ctx.fillStyle = "rgba(56,189,248,0.5)";
@@ -47,11 +48,11 @@ export default function Home() {
       for (let i = 0; i < 50; i++) particles.push(new Particle());
     }
 
-    function animate() {
+    function animate(ctx: CanvasRenderingContext2D) {
       ctx.clearRect(0, 0, width, height);
       particles.forEach((p) => {
         p.update();
-        p.draw();
+        p.draw(ctx);
       });
 
       for (let i = 0; i < particles.length; i++) {
@@ -66,11 +67,11 @@ export default function Home() {
           }
         }
       }
-      requestAnimationFrame(animate);
+      requestAnimationFrame(() => animate(ctx));
     }
 
     init();
-    animate();
+    animate(ctx);
     window.addEventListener("resize", init);
     return () => window.removeEventListener("resize", init);
   }, []);
@@ -92,7 +93,7 @@ export default function Home() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-black/50 backdrop-blur-xl border-b border-gray-800">
         <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
           <div className="flex items-center space-x-3">
-            <img src="/logo.svg" className="h-6" alt="F.O.R.G.E. Logo" />
+            <Image src="/logo.svg" width={24} height={24} alt="F.O.R.G.E. Logo" />
             <span className="text-xl font-bold tracking-tight text-white">F.O.R.G.E.</span>
           </div>
           <a
@@ -151,7 +152,7 @@ export default function Home() {
                     <p className="section-title">CASE STUDIES: REAL-WORLD IMPACT</p>
                     <h2 className="text-4xl md:text-6xl font-extrabold tracking-tighter text-white mt-4">From Theory to Reality.</h2>
                     <p className="mt-6 text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
-                        Corruption isn't abstract. It has real victims. Here’s how F.O.R.G.E. would rewrite the story in common scenarios of graft.
+                        Corruption isn&apos;t abstract. It has real victims. Here’s how F.O.R.G.E. would rewrite the story in common scenarios of graft.
                     </p>
                 </div>
                 <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -368,9 +369,9 @@ export default function Home() {
           <Reveal>
             <div className="container mx-auto px-6 text-center">
                  <p className="section-title">IMPACT METRICS</p>
-                 <h2 className="text-4xl md:text-6xl font-extrabold tracking-tighter text-white mt-4">The data doesn't lie.</h2>
+                 <h2 className="text-4xl md:text-6xl font-extrabold tracking-tighter text-white mt-4">The data doesn&apos;t lie.</h2>
                  <p className="mt-6 text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
-                    Success is not a headline, it's a verifiable data point. This is the quantifiable impact of incorruptible governance.
+                    Success is not a headline, it&apos;s a verifiable data point. This is the quantifiable impact of incorruptible governance.
                  </p>
                  <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
                     <div>
@@ -399,7 +400,7 @@ export default function Home() {
             <div className="container mx-auto px-6 text-center">
                  <p className="section-title">THE RESISTANCE</p>
                  <h2 className="text-4xl md:text-6xl font-extrabold tracking-tighter text-white mt-4 max-w-5xl mx-auto leading-tight">
-                    "Corruption is just the way things work."
+                    &quot;Corruption is just the way things work.&quot;
                  </h2>
                  <p className="mt-6 text-3xl font-semibold text-white">Not anymore.</p>
                  <div className="mt-12 code-block max-w-md mx-auto !text-cyan-400">FORGE_STATUS: OPERATIONAL
