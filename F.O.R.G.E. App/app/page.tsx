@@ -56,7 +56,7 @@ export default function Home() {
               <SectionTitle>CASE STUDIES: REAL-WORLD IMPACT</SectionTitle>
               <SectionHeading>From Theory to Reality.</SectionHeading>
               <SectionDescription>
-                Corruption isn't abstract. It has real victims. Here’s how F.O.R.G.E. would rewrite the story in common scenarios of graft.
+                Corruption isn&apos;t abstract. It has real victims. Here’s how F.O.R.G.E. would rewrite the story in common scenarios of graft.
               </SectionDescription>
             </div>
             <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -248,9 +248,9 @@ export default function Home() {
         <Section className="bg-black/50">
           <div className="container mx-auto px-6 text-center">
             <SectionTitle>IMPACT METRICS</SectionTitle>
-            <SectionHeading>The data doesn't lie.</SectionHeading>
+            <SectionHeading>The data doesn&apos;t lie.</SectionHeading>
             <SectionDescription>
-              Success is not a headline, it's a verifiable data point. This is the quantifiable impact of incorruptible governance.
+              Success is not a headline, it&apos;s a verifiable data point. This is the quantifiable impact of incorruptible governance.
             </SectionDescription>
             <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
               <div>
@@ -277,7 +277,7 @@ export default function Home() {
           <div className="container mx-auto px-6 text-center">
             <SectionTitle>THE RESISTANCE</SectionTitle>
             <h2 className="text-4xl md:text-6xl font-extrabold tracking-tighter text-white mt-4 max-w-5xl mx-auto leading-tight">
-              "Corruption is just the way things work."
+              &ldquo;Corruption is just the way things work.&rdquo;
             </h2>
             <p className="mt-6 text-3xl font-semibold text-white">Not anymore.</p>
             <div className="mt-12 code-block max-w-md mx-auto !text-cyan-400">FORGE_STATUS: OPERATIONAL

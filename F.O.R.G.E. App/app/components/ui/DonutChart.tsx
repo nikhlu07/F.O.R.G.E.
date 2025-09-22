@@ -1,12 +1,10 @@
 interface DonutChartProps {
   total: number;
   disbursed: number;
-  remaining: number;
 }
 
-export const DonutChart = ({ total, disbursed, remaining }: DonutChartProps) => {
+export const DonutChart = ({ total, disbursed }: DonutChartProps) => {
   const disbursedPercent = (disbursed / total) * 100;
-  const remainingPercent = (remaining / total) * 100;
 
   const circumference = 2 * Math.PI * 40;
   const disbursedOffset = circumference - (disbursedPercent / 100) * circumference;

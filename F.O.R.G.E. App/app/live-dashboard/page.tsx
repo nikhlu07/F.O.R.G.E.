@@ -137,7 +137,7 @@ export default function LiveDashboard() {
           if (m.status === 'In Progress') {
             const updatedTransactions = m.transactions.map(t => {
               if (t.status === 'Pending' && Math.random() > 0.7) {
-                return { ...t, status: 'Live' as 'Live' };
+                return { ...t, status: 'Live' as const };
               }
               return t;
             });
@@ -210,7 +210,6 @@ export default function LiveDashboard() {
                     <DonutChart
                       total={project.financials.totalAllocated}
                       disbursed={project.financials.disbursed}
-                      remaining={project.financials.remaining}
                     />
                   </div>
                   <div className="md:col-span-2 grid grid-cols-2 gap-4 text-center">

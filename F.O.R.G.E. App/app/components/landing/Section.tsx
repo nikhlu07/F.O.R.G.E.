@@ -1,6 +1,7 @@
 import { Reveal } from "../Animations";
+import React from "react";
 
-export const Section = ({ children, className, ...props }: { children: React.ReactNode, className?: string, [key: string]: any }) => {
+export const Section = ({ children, className, ...props }: React.ComponentProps<'section'> & { children: React.ReactNode }) => {
   return (
     <section className={`py-16 lg:py-24 ${className}`} {...props}>
       <Reveal>
