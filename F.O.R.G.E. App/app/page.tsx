@@ -75,6 +75,16 @@ export default function Home() {
     return () => window.removeEventListener("resize", init);
   }, []);
 
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      targetElement.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <div className="font-inter bg-[#0A0A0A] text-[#EAEAEA]">
       <LoadUpAnimation />
@@ -86,10 +96,12 @@ export default function Home() {
             <span className="text-xl font-bold tracking-tight text-white">F.O.R.G.E.</span>
           </div>
           <a
-            href="#contribute"
+            href="/live-dashboard"
+            target="_blank"
+            rel="noopener noreferrer"
             className="px-5 py-2.5 text-sm font-semibold text-black bg-cyan-400 rounded-full hover:bg-white transition-colors shadow-[0_0_20px_rgba(56,189,248,0.5)]"
           >
-            Join the Resistance
+            Launch Live Dashboard
           </a>
         </nav>
       </header>
@@ -107,8 +119,14 @@ export default function Home() {
               The Financial Oversight & Resource Governance Engine. <br />Corruption is now a legacy bug.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a href="#dashboard" className="px-6 py-3 text-base font-semibold text-black bg-cyan-400 rounded-full hover:bg-white transition-colors shadow-[0_0_20px_rgba(56,189,248,0.5)]">Launch Live Dashboard</a>
-              <a href="#case-studies" className="px-6 py-3 text-base font-semibold text-white bg-transparent border border-gray-600 rounded-full hover:bg-gray-800 hover:border-gray-500 transition-colors">See Real-World Impact</a>
+              <a href="/live-dashboard" target="_blank" rel="noopener noreferrer" className="px-6 py-3 text-base font-semibold text-black bg-cyan-400 rounded-full hover:bg-white transition-colors shadow-[0_0_20px_rgba(56,189,248,0.5)]">Launch Live Dashboard</a>
+              <a 
+                href="#case-studies" 
+                onClick={(e) => handleScroll(e, 'case-studies')}
+                className="px-6 py-3 text-base font-semibold text-white bg-transparent border border-gray-600 rounded-full hover:bg-gray-800 hover:border-gray-500 transition-colors"
+              >
+                See Real-World Impact
+              </a>
             </div>
           </div>
         </section>
@@ -207,7 +225,7 @@ export default function Home() {
                             <div>
                                 <p className="text-sm text-gray-300 mb-2">Current: Milestone 2/5 - Panel Installation</p>
                                 <div className="w-full bg-gray-800 rounded-full h-4">
-                                    <div className="bg-cyan-500 h-4 rounded-full width: 40%"></div>
+                                    <div className="bg-cyan-500 h-4 rounded-full" style={{width: '40%'}}></div>
                                 </div>
                             </div>
 
