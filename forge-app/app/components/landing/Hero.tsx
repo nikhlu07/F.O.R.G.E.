@@ -3,6 +3,40 @@
 import { useEffect } from "react";
 import Link from "next/link";
 
+class CanvasParticle {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  radius: number;
+  width: number;
+  height: number;
+
+  constructor(width: number, height: number) {
+    this.x = Math.random() * width;
+    this.y = Math.random() * height;
+    this.vx = (Math.random() - 0.5) * 0.5;
+    this.vy = (Math.random() - 0.5) * 0.5;
+    this.radius = Math.random() * 1.5;
+    this.width = width;
+    this.height = height;
+  }
+
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    if (this.x < 0 || this.x > this.width) this.vx *= -1;
+    if (this.y < 0 || this.y > this.height) this.vy *= -1;
+  }
+
+  draw(ctx: CanvasRenderingContext2D) {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(56,189,248,0.5)";
+    ctx.fill();
+  }
+}
+
 export const Hero = ({ handleScroll }: { handleScroll: (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => void }) => {
   useEffect(() => {
     const canvas = document.getElementById("hero-canvas") as HTMLCanvasElement;
@@ -10,43 +44,19 @@ export const Hero = ({ handleScroll }: { handleScroll: (e: React.MouseEvent<HTML
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    let canvasWidth: number, canvasHeight: number, particles: Particle[];
-
-    class Particle {
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      radius: number;
-      constructor() {
-        this.x = Math.random() * canvasWidth;
-        this.y = Math.random() * canvasHeight;
-        this.vx = (Math.random() - 0.5) * 0.5;
-        this.vy = (Math.random() - 0.5) * 0.5;
-        this.radius = Math.random() * 1.5;
-      }
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-        if (this.x < 0 || this.x > canvasWidth) this.vx *= -1;
-        if (this.y < 0 || this.y > canvasHeight) this.vy *= -1;
-      }
-      draw(ctx: CanvasRenderingContext2D) {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(56,189,248,0.5)";
-        ctx.fill();
-      }
-    }
+    let canvasWidth: number, canvasHeight: number, particles: CanvasParticle[];
 
     function init() {
       canvasWidth = canvas.width = window.innerWidth;
       canvasHeight = canvas.height = canvas.parentElement?.clientHeight || window.innerHeight;
       particles = [];
-      for (let i = 0; i < 50; i++) particles.push(new Particle());
+      for (let i = 0; i < 50; i++) {
+        particles.push(new CanvasParticle(canvasWidth, canvasHeight));
+      }
     }
 
-    function animate(ctx: CanvasRenderingContext2D) {
+    function animate() {
+      if (!ctx) return;
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
       particles.forEach((p) => {
         p.update();
@@ -65,11 +75,11 @@ export const Hero = ({ handleScroll }: { handleScroll: (e: React.MouseEvent<HTML
           }
         }
       }
-      requestAnimationFrame(() => animate(ctx));
+      requestAnimationFrame(animate);
     }
 
     init();
-    animate(ctx);
+    animate();
     window.addEventListener("resize", init);
 
     return () => {
