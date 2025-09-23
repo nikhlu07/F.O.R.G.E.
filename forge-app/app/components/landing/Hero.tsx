@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 class CanvasParticle {
   x: number;
@@ -88,7 +88,7 @@ export const Hero = ({ handleScroll }: { handleScroll: (e: React.MouseEvent<HTML
     };
   }, []);
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -98,14 +98,14 @@ export const Hero = ({ handleScroll }: { handleScroll: (e: React.MouseEvent<HTML
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
         duration: 0.8,
-        ease: "easeOut",
+        ease: [0, 0, 0.58, 1],
       },
     },
   };
