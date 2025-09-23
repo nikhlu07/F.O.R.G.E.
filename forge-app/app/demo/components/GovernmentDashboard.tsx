@@ -52,7 +52,7 @@ export default function GovernmentDashboard() {
                 <Card>
                     <CardHeader>AI-Generated Alerts & Claim Oversight</CardHeader>
                     <CardContent>
-                        <p className="text-xs text-gray-400 -mt-2 mb-4">The system's AI auditor automatically flags suspicious transactions for your review.</p>
+                        <p className="text-xs text-gray-400 -mt-2 mb-4">The system&apos;s AI auditor automatically flags suspicious transactions for your review.</p>
                         <div className="overflow-x-auto">
                             <table className="w-full text-sm text-left">
                                 <thead className="text-xs text-gray-400 uppercase">
