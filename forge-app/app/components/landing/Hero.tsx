@@ -88,8 +88,9 @@ export const Hero = ({ handleScroll }: { handleScroll: (e: React.MouseEvent<HTML
           The Financial Oversight & Resource Governance Engine. <br />Corruption is now a legacy bug.
         </p>
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link href="/demo" className="px-6 py-3 text-base font-semibold text-black bg-cyan-400 rounded-full hover:bg-white transition-colors shadow-[0_0_20px_rgba(56,189,248,0.5)]">
-            Live Demo
+          <Link href="https://github.com"
+            target="_blank" className="px-6 py-3 text-base font-semibold text-black bg-cyan-400 rounded-full hover:bg-white transition-colors shadow-[0_0_20px_rgba(56,189,248,0.5)]">
+            Under the Hood
           </Link>
           <a
             href="/live-dashboard"
