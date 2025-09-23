@@ -10,7 +10,7 @@ export const Hero = ({ handleScroll }: { handleScroll: (e: React.MouseEvent<HTML
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    let width: number, height: number, particles: Particle[];
+    let canvasWidth: number, canvasHeight: number, particles: Particle[];
 
     class Particle {
       x: number;
@@ -19,8 +19,8 @@ export const Hero = ({ handleScroll }: { handleScroll: (e: React.MouseEvent<HTML
       vy: number;
       radius: number;
       constructor() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
+        this.x = Math.random() * canvasWidth;
+        this.y = Math.random() * canvasHeight;
         this.vx = (Math.random() - 0.5) * 0.5;
         this.vy = (Math.random() - 0.5) * 0.5;
         this.radius = Math.random() * 1.5;
@@ -28,8 +28,8 @@ export const Hero = ({ handleScroll }: { handleScroll: (e: React.MouseEvent<HTML
       update() {
         this.x += this.vx;
         this.y += this.vy;
-        if (this.x < 0 || this.x > width) this.vx *= -1;
-        if (this.y < 0 || this.y > height) this.vy *= -1;
+        if (this.x < 0 || this.x > canvasWidth) this.vx *= -1;
+        if (this.y < 0 || this.y > canvasHeight) this.vy *= -1;
       }
       draw(ctx: CanvasRenderingContext2D) {
         ctx.beginPath();
@@ -40,14 +40,14 @@ export const Hero = ({ handleScroll }: { handleScroll: (e: React.MouseEvent<HTML
     }
 
     function init() {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = canvas.parentElement?.clientHeight || window.innerHeight;
+      canvasWidth = canvas.width = window.innerWidth;
+      canvasHeight = canvas.height = canvas.parentElement?.clientHeight || window.innerHeight;
       particles = [];
       for (let i = 0; i < 50; i++) particles.push(new Particle());
     }
 
     function animate(ctx: CanvasRenderingContext2D) {
-      ctx.clearRect(0, 0, width, height);
+      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
       particles.forEach((p) => {
         p.update();
         p.draw(ctx);
