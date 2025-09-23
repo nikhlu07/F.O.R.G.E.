@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Link from "next/link";
 
 export const Hero = ({ handleScroll }: { handleScroll: (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => void }) => {
   useEffect(() => {
@@ -87,13 +88,14 @@ export const Hero = ({ handleScroll }: { handleScroll: (e: React.MouseEvent<HTML
           The Financial Oversight & Resource Governance Engine. <br />Corruption is now a legacy bug.
         </p>
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a href="/live-dashboard" target="_blank" rel="noopener noreferrer" className="px-6 py-3 text-base font-semibold text-black bg-cyan-400 rounded-full hover:bg-white transition-colors shadow-[0_0_20px_rgba(56,189,248,0.5)]">Launch Live Dashboard</a>
+          <Link href="/demo" className="px-6 py-3 text-base font-semibold text-black bg-cyan-400 rounded-full hover:bg-white transition-colors shadow-[0_0_20px_rgba(56,189,248,0.5)]">
+            Live Demo
+          </Link>
           <a
-            href="#case-studies"
-            onClick={(e) => handleScroll(e, 'case-studies')}
+            href="/live-dashboard"
             className="px-6 py-3 text-base font-semibold text-white bg-transparent border border-gray-600 rounded-full hover:bg-gray-800 hover:border-gray-500 transition-colors"
           >
-            See Real-World Impact
+            Live Dashboard
           </a>
         </div>
       </div>
