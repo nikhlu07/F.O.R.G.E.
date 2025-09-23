@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 class CanvasParticle {
   x: number;
@@ -87,17 +88,53 @@ export const Hero = ({ handleScroll }: { handleScroll: (e: React.MouseEvent<HTML
     };
   }, []);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+      },
+    },
+  };
+
   return (
     <section className="text-center hero-section h-screen flex flex-col items-center justify-center relative overflow-hidden">
       <canvas id="hero-canvas" className="absolute top-0 left-0 w-full h-full z-0" />
-      <div className="container mx-auto px-6 relative z-10">
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter text-white">
+      <motion.div
+        className="container mx-auto px-6 relative z-10"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.h1
+          variants={itemVariants}
+          className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter text-white"
+        >
           Governance,<br />Immutable.
-        </h1>
-        <p className="mt-8 text-lg md:text-xl lg:text-2xl text-gray-300 max-w-3xl mx-auto">
+        </motion.h1>
+        <motion.p
+          variants={itemVariants}
+          className="mt-8 text-lg md:text-xl lg:text-2xl text-gray-300 max-w-3xl mx-auto"
+        >
           The Financial Oversight & Resource Governance Engine. <br />Corruption is now a legacy bug.
-        </p>
-        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+        </motion.p>
+        <motion.div
+          variants={itemVariants}
+          className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
           <Link href="https://github.com"
             target="_blank" className="px-6 py-3 text-base font-semibold text-black bg-cyan-400 rounded-full hover:bg-white transition-colors shadow-[0_0_20px_rgba(56,189,248,0.5)]">
             Under the Hood
@@ -108,8 +145,8 @@ export const Hero = ({ handleScroll }: { handleScroll: (e: React.MouseEvent<HTML
           >
             Live Dashboard
           </a>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 };
