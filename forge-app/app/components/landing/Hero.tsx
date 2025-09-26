@@ -111,7 +111,7 @@ export const Hero = ({ handleScroll }: { handleScroll: (e: React.MouseEvent<HTML
   };
 
   return (
-    <section className="text-center hero-section h-screen flex flex-col items-center justify-center relative overflow-hidden">
+    <section className="text-center hero-section bg-black h-screen flex flex-col items-center justify-center relative overflow-hidden">
       <canvas id="hero-canvas" className="absolute top-0 left-0 w-full h-full z-0" />
       <motion.div
         className="container mx-auto px-6 relative z-10"

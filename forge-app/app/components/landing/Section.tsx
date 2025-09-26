@@ -3,7 +3,7 @@ import React from "react";
 
 export const Section = ({ children, className, ...props }: React.ComponentProps<'section'> & { children: React.ReactNode }) => {
   return (
-    <section className={`py-16 lg:py-24 ${className}`} {...props}>
+    <section className={`py-16 lg:py-24 bg-black ${className || ''}`} {...props}>
       <Reveal>
         {children}
       </Reveal>

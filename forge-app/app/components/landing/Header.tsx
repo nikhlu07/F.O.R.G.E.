@@ -25,7 +25,7 @@ export const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-black/50 backdrop-blur-xl border-b border-gray-800">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-black backdrop-blur-xl border-b border-gray-800">
       <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
         <Link href="/" className="flex items-center space-x-3">
           <Image src="/logo.svg" width={24} height={24} alt="F.O.R.G.E. Logo" />

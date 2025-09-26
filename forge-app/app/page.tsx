@@ -42,7 +42,7 @@ export default function Home() {
           <main>
             <Hero handleScroll={handleScroll} />
 
-            <Section className="bg-black">
+            <Section>
               <div className="container mx-auto px-6 text-center">
                 <SectionTitle>MISSION BRIEFING</SectionTitle>
                 <SectionHeading>Code, not corruption.</SectionHeading>
@@ -78,7 +78,7 @@ export default function Home() {
               </div>
             </Section>
 
-            <Section id="dashboard" className="bg-black">
+            <Section id="dashboard">
               <div className="container mx-auto px-6">
                 <div className="text-center pb-16">
                   <SectionTitle>LIVE DASHBOARD</SectionTitle>
@@ -153,7 +153,7 @@ export default function Home() {
               </div>
             </Section>
 
-            <Section className="bg-black/50">
+            <Section>
               <div className="container mx-auto px-6 text-center">
                 <div className="pb-16 lg:pb-24">
                   <SectionTitle>CORE SYSTEMS</SectionTitle>
@@ -182,7 +182,7 @@ export default function Home() {
               </div>
             </Section>
 
-            <Section className="bg-black/50">
+            <Section>
               <div className="container mx-auto px-6 text-center">
                 <div className="pb-16">
                   <SectionTitle>TECHNICAL SPECIFICATIONS</SectionTitle>
@@ -247,7 +247,7 @@ export default function Home() {
               </div>
             </Section>
 
-            <Section className="bg-black/50">
+            <Section>
               <div className="container mx-auto px-6 text-center">
                 <SectionTitle>IMPACT METRICS</SectionTitle>
                 <SectionHeading>The data doesn&apos;t lie.</SectionHeading>
@@ -289,7 +289,7 @@ REVOLUTION_PROGRESS: 15% AND CLIMBING</div>
               </div>
             </Section>
 
-            <Section id="contribute" className="bg-black/50 border-t border-gray-800">
+            <Section id="contribute" className="border-t border-gray-800">
               <div className="container mx-auto px-6 text-center">
                 <SectionTitle>CONTRIBUTING</SectionTitle>
                 <SectionHeading>Help build the future.</SectionHeading>
