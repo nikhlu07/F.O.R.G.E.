@@ -1,46 +1,38 @@
 "use client";
 
 import { useState } from "react";
-import { ShieldCheckIcon, BuildingOffice2Icon, EyeIcon, UserCircleIcon } from '@heroicons/react/24/outline';
+import { ShieldCheckIcon, BuildingOffice2Icon, EyeIcon, UserCircleIcon, UserGroupIcon } from '@heroicons/react/24/outline';
 import { Reveal } from '../components/Animations';
 import { Header } from '../components/landing/Header';
 import { Footer } from '../components/landing/Footer';
 import { useRouter } from 'next/navigation';
 
-type Role = "government" | "vendor" | "auditor" | "admin";
+type Role = "government" | "vendor" | "auditor" | "admin" | "citizen";
+type GovernmentType = "central" | "state" | "deputy";
 
 export default function LoginPage() {
   const [activeRole, setActiveRole] = useState<Role>("government");
+  const [governmentType, setGovernmentType] = useState<GovernmentType>("central");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically handle authentication
-    // For this example, we'll just redirect based on role
-    console.log("Logging in with:", { email, password, role: activeRole });
+    console.log("Logging in with:", { email, password, role: activeRole, ...(activeRole === "government" && { governmentType }) });
 
-    // Simulate a successful login by setting a token
+    // Simulate a successful login by setting a token and role
     localStorage.setItem("authToken", "dummy-token-for-demo");
-
-    switch (activeRole) {
-      case "government":
-        router.push('/government');
-        break;
-      case "vendor":
-        router.push('/vendor');
-        break;
-      case "auditor":
-        router.push('/auditor');
-        break;
-      case "admin":
-        router.push('/demo');
-        break;
-      default:
-        router.push('/');
-        break;
+    localStorage.setItem("userRole", activeRole);
+    if (activeRole === "government") {
+      localStorage.setItem("governmentType", governmentType);
+    } else {
+      localStorage.removeItem("governmentType");
     }
+
+
+    router.push('/demo');
+
   };
 
   return (
@@ -63,16 +55,39 @@ export default function LoginPage() {
               <div className="max-w-lg mx-auto">
                 {/* Role Switcher */}
                 <div className="mb-8">
-                  <div className="flex justify-center gap-1 p-1 bg-gray-900/50 border border-gray-800 rounded-full">
+                  <div className="flex justify-center gap-1 p-1 border-gray-800 rounded-full">
                       <RoleButton name="Government" icon={<ShieldCheckIcon className="w-5 h-5" />} role="government" activeRole={activeRole} onClick={setActiveRole} />
                       <RoleButton name="Vendor" icon={<BuildingOffice2Icon className="w-5 h-5" />} role="vendor" activeRole={activeRole} onClick={setActiveRole} />
                       <RoleButton name="Auditor" icon={<EyeIcon className="w-5 h-5" />} role="auditor" activeRole={activeRole} onClick={setActiveRole} />
                       <RoleButton name="Admin" icon={<UserCircleIcon className="w-5 h-5" />} role="admin" activeRole={activeRole} onClick={setActiveRole} />
+                      <RoleButton name="Citizen" icon={<UserGroupIcon className="w-5 h-5" />} role="citizen" activeRole={activeRole} onClick={setActiveRole} />
                   </div>
                 </div>
 
                 {/* Login Form */}
                 <form onSubmit={handleLogin} className="space-y-6 bg-black/50 border border-gray-800 rounded-2xl p-8 shadow-2xl shadow-cyan-500/10">
+                  {activeRole === 'government' && (
+                    <div>
+                      <label htmlFor="governmentType" className="block text-sm font-medium text-gray-300">
+                        Government Type
+                      </label>
+                      <div className="mt-1">
+                        <select
+                          id="governmentType"
+                          name="governmentType"
+                          required
+                          value={governmentType}
+                          onChange={(e) => setGovernmentType(e.target.value as GovernmentType)}
+                          className="appearance-none block w-full px-3 py-2 border border-gray-700 rounded-md shadow-sm placeholder-gray-500 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm bg-gray-900 text-white"
+                        >
+                          <option value="central">Central</option>
+                          <option value="state">State</option>
+                          <option value="deputy">Deputy</option>
+                        </select>
+                      </div>
+                    </div>
+                  )}
+
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-300">
                       Email Address
