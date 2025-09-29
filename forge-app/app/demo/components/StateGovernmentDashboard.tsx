@@ -1,6 +1,7 @@
 "use client";
 import { useState } from 'react';
 import { DollarSign, Users, BarChart3, Shield, UserPlus, Settings, AlertTriangle, Building } from 'lucide-react';
+import { stateData, deputies, pendingAllocations, regionalAlerts } from '../../data/mockData';
 
 export default function StateGovernmentDashboard() {
   const [budgetAmount, setBudgetAmount] = useState('');
@@ -8,36 +9,6 @@ export default function StateGovernmentDashboard() {
   const [selectedDeputy, setSelectedDeputy] = useState('');
   const [newDeputyId, setNewDeputyId] = useState('');
   const [deputyToRemove, setDeputyToRemove] = useState('');
-
-  // Mock data for state-level management
-  const stateData = {
-    stateName: "Maharashtra",
-    totalBudget: 25000000,
-    allocatedBudget: 18500000,
-    remainingBudget: 6500000,
-    activeProjects: 23,
-    deputiesCount: 8,
-    averageRiskScore: 32
-  };
-
-  const deputies = [
-    { id: 'dep-001', name: 'Rajesh Kumar', district: 'Mumbai Central', projects: 5, performance: 4.2, riskScore: 25 },
-    { id: 'dep-002', name: 'Priya Sharma', district: 'Pune East', projects: 3, performance: 4.7, riskScore: 18 },
-    { id: 'dep-003', name: 'Amit Patel', district: 'Nagpur North', projects: 4, performance: 3.9, riskScore: 45 },
-    { id: 'dep-004', name: 'Sunita Desai', district: 'Nashik South', projects: 6, performance: 4.5, riskScore: 22 }
-  ];
-
-  const pendingAllocations = [
-    { id: 'alloc-001', project: 'Highway Extension Phase 2', requestedAmount: 2500000, priority: 'high' },
-    { id: 'alloc-002', project: 'School Infrastructure Upgrade', requestedAmount: 800000, priority: 'medium' },
-    { id: 'alloc-003', project: 'Hospital Equipment Purchase', requestedAmount: 1200000, priority: 'high' }
-  ];
-
-  const regionalAlerts = [
-    { id: 'alert-001', type: 'corruption', description: 'Unusual vendor pattern in Mumbai Central', severity: 'high', deputy: 'Rajesh Kumar' },
-    { id: 'alert-002', type: 'budget', description: 'Budget utilization above 90% in Pune East', severity: 'medium', deputy: 'Priya Sharma' },
-    { id: 'alert-003', type: 'timeline', description: 'Project delays reported in Nagpur North', severity: 'low', deputy: 'Amit Patel' }
-  ];
 
   const handleAllocateBudget = () => {
     if (!budgetAmount || !projectArea || !selectedDeputy) {

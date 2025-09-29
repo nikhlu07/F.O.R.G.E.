@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { DollarSign, Users, Shield, AlertTriangle, TrendingUp, Building, Truck, FileText, ArrowRight, MapPin, CheckCircle, Clock } from 'lucide-react';
-import { mockBudgets, mockClaims, mockVendors } from '../../data/mockData';
+import { mockBudgets, mockClaims, mockVendors, districtData, availableVendors, allocatedProjects, pendingClaims, communityReports } from '../../data/mockData';
 import { DonutChart } from '../../components/ui/DonutChart';
 
 export function DeputyDashboard() {
@@ -10,39 +10,6 @@ export function DeputyDashboard() {
   const [selectedAllocation, setSelectedAllocation] = useState('');
   const [claimRecommendation, setClaimRecommendation] = useState('');
   const [selectedClaim, setSelectedClaim] = useState('');
-
-  // Mock data from the original DeputyDashboard
-  const districtData = {
-    districtName: "Mumbai Central",
-    stateHead: "Rajesh Kumar",
-    allocatedBudget: 5000000,
-    spentBudget: 3200000,
-    activeProjects: 5,
-    pendingClaims: 3
-  };
-
-  const availableVendors = [
-    { id: 'vendor-001', name: 'Maharashtra Construction Ltd', rating: 4.2, riskScore: 25 },
-    { id: 'vendor-002', name: 'Mumbai Infrastructure Co', rating: 4.7, riskScore: 18 },
-    { id: 'vendor-003', name: 'Central Highway Builders', rating: 3.9, riskScore: 45 },
-  ];
-
-  const allocatedProjects = [
-    { id: 'alloc-001', project: 'Highway Expansion Phase 2', amount: 2500000, status: 'vendor-selection' },
-    { id: 'alloc-002', project: 'School Infrastructure Upgrade', amount: 800000, status: 'in-progress' },
-    { id: 'alloc-003', project: 'Hospital Equipment Purchase', amount: 1200000, status: 'planning' },
-  ];
-
-  const pendingClaims = [
-    { id: 'claim-001', vendor: 'Maharashtra Construction Ltd', project: 'Highway Expansion', amount: 450000, riskScore: 35, submittedAt: new Date('2024-01-15') },
-    { id: 'claim-002', vendor: 'Mumbai Infrastructure Co', project: 'School Upgrade', amount: 280000, riskScore: 22, submittedAt: new Date('2024-01-18') },
-    { id: 'claim-003', vendor: 'Metro Development Corp', project: 'Hospital Equipment', amount: 890000, riskScore: 78, submittedAt: new Date('2024-01-20') },
-  ];
-
-  const communityReports = [
-    { id: 'report-001', project: 'Highway Expansion', issue: 'Construction quality concerns', priority: 'medium', date: new Date('2024-01-22') },
-    { id: 'report-002', project: 'School Upgrade', issue: 'Delayed completion timeline', priority: 'high', date: new Date('2024-01-25') },
-  ];
 
   const handleSelectVendor = () => {
     if (!selectedVendor || !selectedAllocation) {

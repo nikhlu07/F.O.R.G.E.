@@ -1,0 +1,22 @@
+# FastAPI web server
+fastapi
+uvicorn
+
+# HTTP client
+httpx
+
+# Numerical operations
+numpy
+
+# LangChain for RAG pipeline
+langchain
+langchain-community
+langchain-openai
+openai
+
+# Vector store for RAG
+faiss-cpu
+
+# Testing
+pytest
+pytest-asyncio

@@ -300,6 +300,67 @@ export const mockChallenges: Challenge[] = [
   }
 ];
 
+export const districtData = {
+    districtName: "Mumbai Central",
+    stateHead: "Rajesh Kumar",
+    allocatedBudget: 5000000,
+    spentBudget: 3200000,
+    activeProjects: 5,
+    pendingClaims: 3
+  };
+
+  export const availableVendors = [
+    { id: 'vendor-001', name: 'Maharashtra Construction Ltd', rating: 4.2, riskScore: 25 },
+    { id: 'vendor-002', name: 'Mumbai Infrastructure Co', rating: 4.7, riskScore: 18 },
+    { id: 'vendor-003', name: 'Central Highway Builders', rating: 3.9, riskScore: 45 },
+  ];
+
+  export const allocatedProjects = [
+    { id: 'alloc-001', project: 'Highway Expansion Phase 2', amount: 2500000, status: 'vendor-selection' },
+    { id: 'alloc-002', project: 'School Infrastructure Upgrade', amount: 800000, status: 'in-progress' },
+    { id: 'alloc-003', project: 'Hospital Equipment Purchase', amount: 1200000, status: 'planning' },
+  ];
+
+  export const pendingClaims = [
+    { id: 'claim-001', vendor: 'Maharashtra Construction Ltd', project: 'Highway Expansion', amount: 450000, riskScore: 35, submittedAt: new Date('2024-01-15') },
+    { id: 'claim-002', vendor: 'Mumbai Infrastructure Co', project: 'School Upgrade', amount: 280000, riskScore: 22, submittedAt: new Date('2024-01-18') },
+    { id: 'claim-003', vendor: 'Metro Development Corp', project: 'Hospital Equipment', amount: 890000, riskScore: 78, submittedAt: new Date('2024-01-20') },
+  ];
+
+  export const communityReports = [
+    { id: 'report-001', project: 'Highway Expansion', issue: 'Construction quality concerns', priority: 'medium', date: new Date('2024-01-22') },
+    { id: 'report-002', project: 'School Upgrade', issue: 'Delayed completion timeline', priority: 'high', date: new Date('2024-01-25') },
+  ];
+
+  export const stateData = {
+    stateName: "Maharashtra",
+    totalBudget: 25000000,
+    allocatedBudget: 18500000,
+    remainingBudget: 6500000,
+    activeProjects: 23,
+    deputiesCount: 8,
+    averageRiskScore: 32
+  };
+
+  export const deputies = [
+    { id: 'dep-001', name: 'Rajesh Kumar', district: 'Mumbai Central', projects: 5, performance: 4.2, riskScore: 25 },
+    { id: 'dep-002', name: 'Priya Sharma', district: 'Pune East', projects: 3, performance: 4.7, riskScore: 18 },
+    { id: 'dep-003', name: 'Amit Patel', district: 'Nagpur North', projects: 4, performance: 3.9, riskScore: 45 },
+    { id: 'dep-004', name: 'Sunita Desai', district: 'Nashik South', projects: 6, performance: 4.5, riskScore: 22 }
+  ];
+
+  export const pendingAllocations = [
+    { id: 'alloc-001', project: 'Highway Extension Phase 2', requestedAmount: 2500000, priority: 'high' },
+    { id: 'alloc-002', project: 'School Infrastructure Upgrade', requestedAmount: 800000, priority: 'medium' },
+    { id: 'alloc-003', project: 'Hospital Equipment Purchase', requestedAmount: 1200000, priority: 'high' }
+  ];
+
+  export const regionalAlerts = [
+    { id: 'alert-001', type: 'corruption', description: 'Unusual vendor pattern in Mumbai Central', severity: 'high', deputy: 'Rajesh Kumar' },
+    { id: 'alert-002', type: 'budget', description: 'Budget utilization above 90% in Pune East', severity: 'medium', deputy: 'Priya Sharma' },
+    { id: 'alert-003', type: 'timeline', description: 'Project delays reported in Nagpur North', severity: 'low', deputy: 'Amit Patel' }
+  ];
+
 export function calculateFraudScore(claim: Claim): number {
   let score = 10; // Base score
 
@@ -352,3 +413,32 @@ export function getRiskIcon(riskLevel: string): string {
     default: return '❓';
   }
 }
+
+export const initialTransactions = [
+  { id: 'TX001', description: 'Payment for materials', amount: 5000, category: 'Operations', vendor: 'Global Supplies', employee: 'John Doe', time: '2023-10-27T10:00:00Z', location: 'New York' },
+  { id: 'TX002', description: 'Consulting fee', amount: 12000, category: 'Services', vendor: 'Innovate LLC', employee: 'Jane Smith', time: '2023-10-27T11:30:00Z', location: 'London' },
+  { id: 'TX003', description: 'Software license', amount: 1500, category: 'Software', vendor: 'Tech Solutions', employee: 'John Doe', time: '2023-10-27T14:00:00Z', location: 'New York' },
+  { id: 'TX004', description: 'Emergency repairs', amount: 8500, category: 'Maintenance', vendor: 'RapidFix Inc.', employee: 'Peter Jones', time: '2023-10-28T09:00:00Z', location: 'San Francisco' },
+  { id: 'TX005', description: 'Personal travel expenses', amount: 3200, category: 'Travel', vendor: 'Airways', employee: 'Jane Smith', time: '2023-10-28T18:45:00Z', location: 'Paris' },
+  { id: 'TX006', description: 'Gift for client', amount: 19500, category: 'Miscellaneous', vendor: 'Unknown Vendor', employee: 'Emily White', time: '2023-10-29T15:20:00Z', location: 'New York' },
+];
+
+export const vendorWatchlist = ['Unknown Vendor', 'Shady Corp'];
+export const suspiciousKeywords = ['personal', 'gift', 'unknown', 'cash advance'];
+export const policyLimits: { [key: string]: number } = {
+  'Travel': 2000,
+  'Miscellaneous': 500,
+};
+
+export const vendorData = {
+  name: "Stark Industries",
+  activeContracts: 3,
+  totalEarnings: 12550000,
+  riskScore: 5,
+};
+
+export const vendorInitialClaims = [
+  { id: "0x8c...f9a1", amount: 150000, description: "Milestone 3 Payment", status: "approved" },
+  { id: "0x5a...e1b9", amount: 400000, description: "Component Delivery", status: "approved" },
+  { id: "0x9f...e4b2", amount: 75000, description: "Material Procurement", status: "pending" },
+];

@@ -1,5 +1,6 @@
 import { useState, useEffect, ReactNode } from 'react';
 import { EyeIcon, UserCircleIcon } from '@heroicons/react/24/solid';
+import { initialTransactions, vendorWatchlist, suspiciousKeywords, policyLimits } from '../../data/mockData';
 
 // Mock data and helper functions
 
@@ -12,22 +13,6 @@ type Transaction = {
   employee: string;
   time: string;
   location: string;
-};
-
-const initialTransactions: Transaction[] = [
-  { id: 'TX001', description: 'Payment for materials', amount: 5000, category: 'Operations', vendor: 'Global Supplies', employee: 'John Doe', time: '2023-10-27T10:00:00Z', location: 'New York' },
-  { id: 'TX002', description: 'Consulting fee', amount: 12000, category: 'Services', vendor: 'Innovate LLC', employee: 'Jane Smith', time: '2023-10-27T11:30:00Z', location: 'London' },
-  { id: 'TX003', description: 'Software license', amount: 1500, category: 'Software', vendor: 'Tech Solutions', employee: 'John Doe', time: '2023-10-27T14:00:00Z', location: 'New York' },
-  { id: 'TX004', description: 'Emergency repairs', amount: 8500, category: 'Maintenance', vendor: 'RapidFix Inc.', employee: 'Peter Jones', time: '2023-10-28T09:00:00Z', location: 'San Francisco' },
-  { id: 'TX005', description: 'Personal travel expenses', amount: 3200, category: 'Travel', vendor: 'Airways', employee: 'Jane Smith', time: '2023-10-28T18:45:00Z', location: 'Paris' },
-  { id: 'TX006', description: 'Gift for client', amount: 19500, category: 'Miscellaneous', vendor: 'Unknown Vendor', employee: 'Emily White', time: '2023-10-29T15:20:00Z', location: 'New York' },
-];
-
-const vendorWatchlist = ['Unknown Vendor', 'Shady Corp'];
-const suspiciousKeywords = ['personal', 'gift', 'unknown', 'cash advance'];
-const policyLimits: { [key: string]: number } = {
-  'Travel': 2000,
-  'Miscellaneous': 500,
 };
 
 const calculateRiskScore = (tx: Transaction) => {

@@ -3,23 +3,10 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader } from "./Card";
 import { StatCard } from "./StatCard";
-
-// Mock Data for Vendor (Stark Industries)
-const vendorData = {
-  name: "Stark Industries",
-  activeContracts: 3,
-  totalEarnings: 12550000,
-  riskScore: 5,
-};
-
-const initialClaims = [
-  { id: "0x8c...f9a1", amount: 150000, description: "Milestone 3 Payment", status: "approved" },
-  { id: "0x5a...e1b9", amount: 400000, description: "Component Delivery", status: "approved" },
-  { id: "0x9f...e4b2", amount: 75000, description: "Material Procurement", status: "pending" },
-];
+import { vendorData, vendorInitialClaims } from "../../data/mockData";
 
 export default function VendorDashboard() {
-  const [claims, setClaims] = useState(initialClaims);
+  const [claims, setClaims] = useState(vendorInitialClaims);
   const [newClaim, setNewClaim] = useState({ amount: "", description: "" });
 
   const handleClaimSubmit = (e: React.FormEvent) => {
