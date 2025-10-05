@@ -4,7 +4,9 @@ Utilizes a dynamic RAG pipeline that incorporates rule-based analysis for hybrid
 """
 
 import logging
+import os
 from typing import List, Dict, Any
+from dotenv import load_dotenv
 
 # LangChain and vector store components
 from langchain_openai import AzureChatOpenAI, AzureOpenAIEmbeddings
@@ -15,6 +17,8 @@ from langchain.schema.output_parser import StrOutputParser
 from langchain.schema.runnable import RunnablePassthrough
 
 logger = logging.getLogger(__name__)
+load_dotenv()
+
 
 class MLFraudDetector:
     """
@@ -76,7 +80,7 @@ class MLFraudDetector:
             prompt = PromptTemplate(template=template, input_variables=["context", "rules_flags", "rules_reasoning", "amount", "area"])
 
             BASE_URL = "https://ravager-base.openai.azure.com/"
-            API_KEY = "MCegdokE2IyvnrnmVU5mxixosZiMoXlbbiFyyOf4ZMaE269x8ywSLJQQJ99BGACfhk5XJ3w3AAABACOGRqTU"
+            API_KEY = os.getenv("API_KEY")
             API_VERSION = "2025-01-01-preview"
             DEPLOYMENT_NAME = "gpt-5-chat"
 

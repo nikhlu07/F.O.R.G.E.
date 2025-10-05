@@ -3,8 +3,10 @@ import random
 import hashlib
 import json
 import logging
+import os
 from datetime import datetime
 from typing import Dict, Any, List
+from dotenv import load_dotenv
 
 # Langchain imports
 from langchain_openai import AzureChatOpenAI
@@ -12,12 +14,13 @@ from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 
 logger = logging.getLogger(__name__)
+load_dotenv()
 
 class SLM:
     def __init__(self):
 
         BASE_URL = "https://ravager-base.openai.azure.com/"
-        API_KEY = "MCegdokE2IyvnrnmVU5mxixosZiMoXlbbiFyyOf4ZMaE269x8ywSLJQQJ99BGACfhk5XJ3w3AAABACOGRqTU"
+        API_KEY = os.getenv("API_KEY")
         API_VERSION = "2025-01-01-preview"
         DEPLOYMENT_NAME = "gpt-5-chat"
 
