@@ -7,6 +7,7 @@ import os
 from datetime import datetime
 from typing import Dict, Any, List
 from dotenv import load_dotenv
+import httpx
 
 # Langchain imports
 from langchain_openai import AzureChatOpenAI
@@ -109,10 +110,24 @@ class SingleStoreClient:
 class HederaBlockchainStorage:
     def __init__(self):
         self.stored_records = []
+        self.audit_api_url = os.getenv("AUDIT_API_URL", "http://localhost:3000/api/audit")
 
     async def store_evidence(self, record: Dict[str, Any]) -> Dict[str, str]:
-        await asyncio.sleep(0.1)  # Simulate blockchain write time
+        try:
+            async with httpx.AsyncClient(timeout=5.0) as client:
+                res = await client.post(self.audit_api_url, json=record)
+                res.raise_for_status()
+                data = res.json()
+                if data.get("ok"):
+                    return {
+                        "record_id": data.get("record_id") or data.get("topicSequenceNumber") or "",
+                        "transaction_hash": data.get("transaction_hash") or data.get("transactionId") or ""
+                    }
+        except Exception as e:
+            logger.error(f"Audit API call failed, falling back to local mock: {e}")
 
+        # Fallback to local mock storage
+        await asyncio.sleep(0.1)
         record_id = f"hedera_{hashlib.md5(str(record).encode()).hexdigest()[:16]}"
         stored_record = {
             "record_id": record_id,
@@ -121,8 +136,6 @@ class HederaBlockchainStorage:
             "transaction_hash": f"tx_{hashlib.sha256(str(record).encode()).hexdigest()[:32]}",
             "data": record
         }
-
         self.stored_records.append(stored_record)
-        logger.info(f"Stored evidence on blockchain: {record_id}")
-
+        logger.info(f"Stored evidence locally (mock): {record_id}")
         return {"record_id": record_id, "transaction_hash": stored_record["transaction_hash"]}
