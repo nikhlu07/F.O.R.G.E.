@@ -8,7 +8,7 @@ from typing import Dict, Any
 from ..data.types import FraudCase
 from .audit import AutonomousAuditManager
 from .guards import AutonomousEthicsGuard
-from ..services.external import ICPBlockchainStorage
+from ..services.external import HederaBlockchainStorage
 from .evidence import AutonomousEvidenceManager
 from .communication import AutonomousCommunicationManager
 from .investigator import AutonomousInvestigator
@@ -86,7 +86,7 @@ class AutonomousDecisionEngine:
             "evidence": assessment.get("evidence", {})
         }
 
-        blockchain_storage = ICPBlockchainStorage()
+        blockchain_storage = HederaBlockchainStorage()
         await blockchain_storage.store_evidence(block_record)
 
     async def preserve_evidence_immutably(self, assessment: Dict[str, Any]):
@@ -121,7 +121,7 @@ class AutonomousDecisionEngine:
         logger.info(f"Investigation case created: {case_id}")
 
         # Store case in blockchain
-        blockchain_storage = ICPBlockchainStorage()
+        blockchain_storage = HederaBlockchainStorage()
         await blockchain_storage.store_evidence(investigation_case)
 
     async def assign_ai_investigator(self, assessment: Dict[str, Any]):

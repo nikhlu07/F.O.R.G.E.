@@ -6,7 +6,7 @@ from datetime import datetime
 from typing import Dict, Any, Optional
 
 from .audit import AutonomousAuditManager
-from ..services.external import ICPBlockchainStorage, SLM
+from ..services.external import HederaBlockchainStorage, SLM
 from .communication import AutonomousCommunicationManager
 
 logger = logging.getLogger(__name__)
@@ -98,7 +98,7 @@ class AutonomousTransactionGuard:
         logger.critical(f"TRANSACTION BLOCKED AUTONOMOUSLY: {transaction_id}")
 
         # Store block record on blockchain
-        blockchain_storage = ICPBlockchainStorage()
+        blockchain_storage = HederaBlockchainStorage()
         await blockchain_storage.store_evidence(block_record)
 
     async def freeze_related_accounts(self, vendor: str):

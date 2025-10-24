@@ -206,3 +206,14 @@ This project is licensed under the MIT License - see the [LICENSE](https://www.g
 -----
 
 **Built with ⚡ by rebels who believe code is law, and law should serve the people.**
+
+## Hedera Hackathon Alignment
+
+F.O.R.G.E. uses Hedera as the foundation for immutable audit logging and governance.
+
+- HCS topics capture audit events with consensus timestamps.
+- Evidence hashes are anchored to HCS and verified via Mirror Node.
+- Minimal EVM contracts handle milestone freezing and case states.
+- Wallet integration (HashPack/Blade) for signing and explorer links.
+
+See `autonomous_fraud_engine/README.md` → Hedera Alignment for details and env vars.

@@ -5,7 +5,7 @@ import logging
 from datetime import datetime
 from typing import Dict, Any
 
-from ..services.external import ICPBlockchainStorage
+from ..services.external import HederaBlockchainStorage
 from ..utils.helpers import CryptographicHasher
 
 logger = logging.getLogger(__name__)
@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 class ImmutableAuditLogger:
     def __init__(self):
         self.audit_trail = []
-        self.blockchain_storage = ICPBlockchainStorage()
+        self.blockchain_storage = HederaBlockchainStorage()
 
     async def store_immutably(self, record: Dict[str, Any]):
         # Add audit metadata
@@ -34,7 +34,7 @@ class ImmutableAuditLogger:
 
 class AutonomousEvidenceManager:
     def __init__(self):
-        self.blockchain_storage = ICPBlockchainStorage()
+        self.blockchain_storage = HederaBlockchainStorage()
         self.evidence_hasher = CryptographicHasher()
         self.chain_of_custody = []
 

@@ -7,7 +7,7 @@ from typing import Dict, Any
 
 from ..utils.helpers import PatternMemoryBank, PerformanceTracker
 from .audit import AutonomousAuditManager
-from ..services.external import ICPBlockchainStorage
+from ..services.external import HederaBlockchainStorage
 
 logger = logging.getLogger(__name__)
 
@@ -151,7 +151,7 @@ class AdaptiveThresholdManager:
         # Implementation for increasing sensitivity
 
     async def log_adjustment_to_blockchain(self, details: Dict[str, Any]):
-        blockchain_storage = ICPBlockchainStorage()
+        blockchain_storage = HederaBlockchainStorage()
         await blockchain_storage.store_evidence({
             "event_type": "threshold_adjustment",
             "details": details,

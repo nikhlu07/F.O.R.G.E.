@@ -81,7 +81,7 @@ class FraudDetectionService:
     def __init__(self):
         self.rules_engine = FraudRulesEngine()
         self.ml_detector = MLFraudDetector()
-        self.icp_canister_url = "http://localhost:8000"  # Backend API endpoint
+        self.backend_api_url = "http://localhost:8000"  # Backend API endpoint
         self._initialize_demo_data()
     
     def _initialize_demo_data(self):
@@ -185,7 +185,7 @@ class FraudDetectionService:
         try:
             async with httpx.AsyncClient() as client:
                 await client.post(
-                    f"{self.icp_canister_url}/api/v1/fraud/update-score",
+                    f"{self.backend_api_url}/api/v1/fraud/update-score",
                     json=fraud_score.model_dump(), timeout=5.0
                 )
         except Exception as e:
@@ -202,7 +202,7 @@ class FraudDetectionService:
         try:
             async with httpx.AsyncClient() as client:
                 await client.post(
-                    f"{self.icp_canister_url}/api/v1/fraud/alert",
+                    f"{self.backend_api_url}/api/v1/fraud/alert",
                     json=alert.model_dump(), timeout=5.0
                 )
             logger.warning(f"🚨 FRAUD ALERT: Claim {claim_data.claim_id} - {fraud_score.score}/100 risk")

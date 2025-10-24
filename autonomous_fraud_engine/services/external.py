@@ -106,14 +106,14 @@ class SingleStoreClient:
         return similar_cases
 
 
-class ICPBlockchainStorage:
+class HederaBlockchainStorage:
     def __init__(self):
         self.stored_records = []
 
     async def store_evidence(self, record: Dict[str, Any]) -> Dict[str, str]:
         await asyncio.sleep(0.1)  # Simulate blockchain write time
 
-        record_id = f"icp_{hashlib.md5(str(record).encode()).hexdigest()[:16]}"
+        record_id = f"hedera_{hashlib.md5(str(record).encode()).hexdigest()[:16]}"
         stored_record = {
             "record_id": record_id,
             "timestamp": datetime.now().isoformat(),

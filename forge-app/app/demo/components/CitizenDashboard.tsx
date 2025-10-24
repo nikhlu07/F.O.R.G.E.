@@ -15,7 +15,7 @@ export function CitizenDashboard() {
       alert('Please fill in all challenge details');
       return;
     }
-    alert(`Challenge submitted with ${stakeAmount} ICP stake`);
+    alert(`Challenge submitted with ${stakeAmount} HBAR stake`);
     setChallengeReason('');
     setStakeAmount('');
     setSelectedClaim('');
@@ -101,7 +101,7 @@ export function CitizenDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-400 text-sm font-medium">Rewards Earned</p>
-                <p className="text-2xl font-bold text-orange-400">50 ICP</p>
+                <p className="text-2xl font-bold text-orange-400">50 HBAR</p>
               </div>
               <div className="p-3 bg-gray-800 rounded-xl">
                 <DollarSign className="h-6 w-6 text-orange-400" />
@@ -215,10 +215,10 @@ export function CitizenDashboard() {
                   value={stakeAmount}
                   onChange={(e) => setStakeAmount(e.target.value)}
                   className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-white"
-                  placeholder="Enter ICP amount to stake..."
+                  placeholder="Enter HBAR amount to stake..."
                 />
                 <p className="text-xs text-gray-500 mt-1">
-                  Minimum stake: 10 ICP. Stakes are returned if challenge is valid.
+                  Minimum stake: 10 HBAR. Stakes are returned if challenge is valid.
                 </p>
               </div>
 
@@ -265,7 +265,7 @@ export function CitizenDashboard() {
                       <p className="text-sm text-gray-400">{challenge.reason}</p>
                     </div>
                     <div className="text-right">
-                      <div className="text-sm font-semibold text-orange-400">{challenge.stakeAmount} ICP</div>
+                      <div className="text-sm font-semibold text-orange-400">{challenge.stakeAmount} HBAR</div>
                       <div className={`px-2 py-1 rounded-full text-xs font-medium ${
                         challenge.status === 'resolved' ? 'bg-green-900/50 text-green-400' :
                         challenge.status === 'investigating' ? 'bg-amber-900/50 text-amber-400' :
@@ -322,7 +322,7 @@ export function CitizenDashboard() {
               </div>
             </div>
             <p className="text-sm text-gray-500">
-              Earn ICP rewards for verified reports that help prevent corruption.
+              Earn HBAR rewards for verified reports that help prevent corruption.
             </p>
           </div>
         </div>

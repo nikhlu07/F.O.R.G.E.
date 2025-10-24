@@ -78,3 +78,29 @@ This will start the simulation and print all output to the console, showcasing t
 -   **Advanced Investigation Tools**: Enhance the autonomous investigator with more sophisticated analysis capabilities.
 -   **Web-based Dashboard**: Create a user interface for monitoring the system and reviewing cases.
 -   **Distributed Deployment**: Deploy the engine in a distributed environment for improved scalability and resilience.
+
+## Hedera Alignment
+
+This project targets Hedera for immutable audit trails and fraud governance.
+
+- Audit Trail: Use Hedera Consensus Service (HCS) topics to record tamper-proof events.
+- Evidence Hashing: Hash artifacts and anchor hashes to HCS with Mirror Node verification.
+- Smart Contracts: Deploy minimal EVM contracts for milestone freezing and case lifecycle.
+- Wallets: Integrate HashPack/Blade for signing and displaying transaction links.
+
+### Environment
+- `HEDERA_NETWORK` (e.g., `testnet`)
+- `HEDERA_ACCOUNT_ID`
+- `HEDERA_PRIVATE_KEY`
+- `HCS_TOPIC_ID` (auto-created or configured)
+
+### Engine → API → Hedera Flow
+1. Python engine calls `POST /api/audit` on the Next.js app.
+2. Next.js API signs and submits a message to HCS via `@hashgraph/sdk`.
+3. Engine logs the resulting `transactionId` and `consensusTimestamp` in audit trails.
+
+### Hackathon Additions
+- Mirror Node verification endpoints (`/api/audit/verify`).
+- HBAR cost tracking and per-event cost summary.
+- Demo dashboard: show latest HCS messages and explorer links.
+- Sample contract + script for milestone freezing and case evidence anchoring.
