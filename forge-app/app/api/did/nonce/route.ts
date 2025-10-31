@@ -5,7 +5,6 @@ export const runtime = "nodejs";
 // Global in-memory nonce store for demo purposes
 // In production, replace with Redis or database-backed storage.
 declare global {
-  // eslint-disable-next-line no-var
   var __didNonceStore: Map<string, string> | undefined;
 }
 

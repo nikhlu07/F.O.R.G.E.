@@ -5,7 +5,6 @@ export const runtime = "nodejs";
 
 // Shared in-memory nonce store from the nonce endpoint
 declare global {
-  // eslint-disable-next-line no-var
   var __didNonceStore: Map<string, string> | undefined;
 }
 

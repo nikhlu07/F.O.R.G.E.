@@ -1,6 +1,6 @@
 "use client";
 import { useState } from 'react';
-import { DollarSign, Users, BarChart3, Shield, UserPlus, Settings, AlertTriangle, Building } from 'lucide-react';
+import { DollarSign, Users, BarChart3, Shield, UserPlus, Settings, AlertTriangle } from 'lucide-react';
 import { stateData, deputies, pendingAllocations, regionalAlerts } from '../../data/mockData';
 
 export default function StateGovernmentDashboard() {

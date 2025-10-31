@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import WalletStatus from "./components/WalletStatus";
+import Image from "next/image";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,7 +34,7 @@ export default function RootLayout({
       >
         <header className="flex items-center justify-between p-4 border-b border-gray-800">
           <div className="flex items-center gap-2">
-            <img src="/logo.svg" alt="FORGE" className="w-6 h-6" />
+            <Image src="/logo.svg" alt="FORGE" width={24} height={24} />
             <span className="text-sm text-gray-400">F.O.R.G.E.</span>
           </div>
           <WalletStatus />

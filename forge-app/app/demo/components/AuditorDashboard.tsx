@@ -2,13 +2,13 @@
 "use client";
 import React, { useState } from 'react';
 import type { ReactNode } from 'react';
-import { Shield, FileText, AlertTriangle, Search, Inbox, Clock, Check, X, ArrowRight } from 'lucide-react';
+import { Shield, FileText, AlertTriangle, Inbox, Clock, Check, X, ArrowRight } from 'lucide-react';
 import { mockClaims, mockChallenges, statistics } from '../../data/mockData';
 import { Claim, Challenge, RiskLevel } from '../../types';
 
 export default function AuditorDashboard() {
-  const [claims, setClaims] = useState(mockClaims);
-  const [investigations, setInvestigations] = useState(mockChallenges);
+  const [claims] = useState(mockClaims);
+  const [investigations] = useState(mockChallenges);
   const [selectedItem, setSelectedItem] = useState<Claim | Challenge | null>(claims[1]); // Default to the high-risk claim
 
   const handleApprove = () => {

@@ -7,7 +7,7 @@ type TransferResult = {
   transactionId?: string;
   topicId?: string;
   hashscanUrl?: string;
-  payload?: any;
+  payload?: Record<string, unknown>;
   error?: string;
 };
 
@@ -18,7 +18,7 @@ export default function FlowOrchestrator() {
   const [amount, setAmount] = useState<number>(1000);
   const [invoiceId, setInvoiceId] = useState("INV-001");
   const [fileRef, setFileRef] = useState<{ storage: "pinata" | "hfs"; cid?: string; fileId?: string; name?: string } | null>(null);
-  const [findings, setFindings] = useState<any>(null);
+  const [findings, setFindings] = useState<{ decision: string; score: number; findings?: Array<{ rule: string; detail: string }> } | null>(null);
 
   const appendLog = (msg: string) => setLog((l) => [msg, ...l]);
 
@@ -79,7 +79,7 @@ export default function FlowOrchestrator() {
           <h4 className="text-lg font-semibold text-white">Step 1: Fund State</h4>
           <button
             onClick={async () => {
-              const r = await transfer("central", "state", 10000, "Fund State Budget");
+              await transfer("central", "state", 10000, "Fund State Budget");
               setStep(2);
             }}
             className="mt-3 px-4 py-2 rounded-lg bg-cyan-500 text-black font-semibold"
@@ -94,7 +94,7 @@ export default function FlowOrchestrator() {
           <button
             disabled={step < 2}
             onClick={async () => {
-              const r = await transfer("state", "district", 5000, "Fund District Operations");
+              await transfer("state", "district", 5000, "Fund District Operations");
               setStep(3);
             }}
             className="mt-3 px-4 py-2 rounded-lg bg-cyan-500 text-black font-semibold disabled:opacity-50"
@@ -172,7 +172,7 @@ export default function FlowOrchestrator() {
               <p className="text-white font-semibold">Decision: {findings.decision}</p>
               <p className="text-gray-400 text-sm">Score: {findings.score}</p>
               <ul className="mt-2 text-sm text-gray-300 list-disc list-inside">
-                {findings.findings?.map((f: any, idx: number) => (
+                {findings.findings?.map((f: { rule: string; detail: string }, idx: number) => (
                   <li key={idx}>{f.rule} – {f.detail}</li>
                 ))}
               </ul>
@@ -186,7 +186,7 @@ export default function FlowOrchestrator() {
           <button
             disabled={!findings || findings.decision === "reject"}
             onClick={async () => {
-              const r = await transfer("district", `vendor:${vendorId}`, amount, `Payment for ${invoiceId}`);
+              await transfer("district", `vendor:${vendorId}`, amount, `Payment for ${invoiceId}`);
               appendLog(`Released to vendor: ${vendorId}`);
             }}
             className="mt-3 px-4 py-2 rounded-lg bg-green-500 text-black font-semibold disabled:opacity-50"

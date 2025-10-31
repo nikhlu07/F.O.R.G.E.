@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from 'react';
-import { DollarSign, Users, Shield, AlertTriangle, TrendingUp, Building, Truck, FileText, ArrowRight, MapPin, CheckCircle, Clock } from 'lucide-react';
-import { mockBudgets, mockClaims, mockVendors, districtData, availableVendors, allocatedProjects, pendingClaims, communityReports } from '../../data/mockData';
-import { DonutChart } from '../../components/ui/DonutChart';
+import { DollarSign, Users, AlertTriangle, TrendingUp, Building, Truck, FileText, ArrowRight, Clock } from 'lucide-react';
+import { districtData, availableVendors, allocatedProjects, pendingClaims, communityReports } from '../../data/mockData';
+
 
 export function DeputyDashboard() {
   const [selectedVendor, setSelectedVendor] = useState('');

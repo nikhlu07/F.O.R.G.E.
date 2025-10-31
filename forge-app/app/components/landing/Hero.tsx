@@ -38,7 +38,7 @@ class CanvasParticle {
   }
 }
 
-export const Hero = ({ handleScroll }: { handleScroll: (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => void }) => {
+export const Hero = () => {
   useEffect(() => {
     const canvas = document.getElementById("hero-canvas") as HTMLCanvasElement;
     if (!canvas) return;

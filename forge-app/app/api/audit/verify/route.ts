@@ -44,7 +44,8 @@ export async function GET(req: Request) {
       runningHash: message?.running_hash,
       chunkInfo: message?.chunk_info,
     });
-  } catch (err: any) {
-    return NextResponse.json({ ok: false, error: err?.message || 'Unknown error' }, { status: 500 });
+  } catch (err: unknown) {
+    const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+    return NextResponse.json({ ok: false, error: errorMessage }, { status: 500 });
   }
 }

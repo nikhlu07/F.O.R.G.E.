@@ -21,16 +21,6 @@ export default function Home() {
     };
   }, []);
 
-  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
-    e.preventDefault();
-    const targetElement = document.getElementById(targetId);
-    if (targetElement) {
-      targetElement.scrollIntoView({
-        behavior: "smooth",
-      });
-    }
-  };
-
   return (
     <div className="font-inter bg-[#0A0A0A] text-[#EAEAEA]">
       {loading ? (
@@ -40,7 +30,7 @@ export default function Home() {
           <Header />
 
           <main>
-            <Hero handleScroll={handleScroll} />
+            <Hero />
 
             <Section>
               <div className="container mx-auto px-6 text-center">

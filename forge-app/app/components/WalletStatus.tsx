@@ -16,7 +16,7 @@ export default function WalletStatus() {
 
   useEffect(() => {
     // Detect presence of a wallet SDK (placeholder)
-    const hasWalletExtension = typeof (window as any).hashconnect !== "undefined" || typeof (window as any).blade !== "undefined";
+    const hasWalletExtension = typeof (window as unknown as Record<string, unknown>).hashconnect !== "undefined" || typeof (window as unknown as Record<string, unknown>).blade !== "undefined";
     if (!hasWalletExtension) {
       setMessage("No Hedera wallet detected. Install HashPack or Blade.");
     } else {

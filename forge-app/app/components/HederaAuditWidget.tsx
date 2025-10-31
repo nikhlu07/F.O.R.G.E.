@@ -1,10 +1,29 @@
 "use client";
 import React, { useState } from "react";
 
+type AuditResult = {
+  ok: boolean;
+  status: string;
+  topicId: string;
+  transactionId: string;
+  topicSequenceNumber?: string;
+  record_id?: string;
+  transaction_hash?: string;
+  payload?: Record<string, unknown>;
+  error?: string;
+};
+
+type VerifyResult = {
+  verified: boolean;
+  consensusTimestamp?: string;
+  sequenceNumber?: string;
+  mirrorUrl?: string;
+};
+
 export default function HederaAuditWidget() {
   const [submitting, setSubmitting] = useState(false);
-  const [result, setResult] = useState<any>(null);
-  const [verify, setVerify] = useState<any>(null);
+  const [result, setResult] = useState<AuditResult | null>(null);
+  const [verify, setVerify] = useState<VerifyResult | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const submitAudit = async () => {
@@ -32,8 +51,9 @@ export default function HederaAuditWidget() {
       const vres = await fetch(`/api/audit/verify?${q}`);
       const vdata = await vres.json();
       setVerify(vdata);
-    } catch (e: any) {
-      setError(e?.message || "Unknown error");
+    } catch (e: unknown) {
+      const errorMessage = e instanceof Error ? e.message : "Unknown error";
+      setError(errorMessage);
     } finally {
       setSubmitting(false);
     }

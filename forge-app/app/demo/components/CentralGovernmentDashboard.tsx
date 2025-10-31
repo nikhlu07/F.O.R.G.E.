@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from 'react';
-import { DollarSign, Users, Shield, AlertTriangle, TrendingUp, Building } from 'lucide-react';
-import { mockBudgets, mockClaims, mockVendors } from '../../data/mockData';
+import { Shield, AlertTriangle, Building } from 'lucide-react';
+import { mockBudgets, mockVendors, mockClaims } from '../../data/mockData';
 import { DonutChart } from '../../components/ui/DonutChart';
 
 export function CentralGovernmentDashboard() {
@@ -23,7 +23,7 @@ export function CentralGovernmentDashboard() {
     alert('Emergency pause activated - All payments suspended');
   };
 
-  const handleApproveVendor = (vendorId: string) => {
+  const handleApproveVendor = (_vendorId: string) => {
     alert('Vendor approved and added to registry');
   };
 

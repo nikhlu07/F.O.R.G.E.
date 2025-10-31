@@ -4,7 +4,6 @@ export const runtime = "nodejs";
 
 // Simple in-memory store for demo duplicate detection
 declare global {
-  // eslint-disable-next-line no-var
   var __seenInvoices: Set<string> | undefined;
 }
 const seenInvoices = (globalThis.__seenInvoices ||= new Set<string>());

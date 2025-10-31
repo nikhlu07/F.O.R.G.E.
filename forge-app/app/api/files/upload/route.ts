@@ -53,7 +53,7 @@ export async function POST(req: Request) {
       const data = await res.json();
       if (!res.ok) throw new Error(data?.error || "Pinata upload failed");
       return NextResponse.json({ storage: "pinata", cid: data.IpfsHash, size, name, description, url: `https://gateway.pinata.cloud/ipfs/${data.IpfsHash}` });
-    } catch (err) {
+    } catch {
       // fall through to API key/secret or HFS
     }
   }
@@ -79,7 +79,7 @@ export async function POST(req: Request) {
       const data = await res.json();
       if (!res.ok) throw new Error(data?.error || "Pinata upload failed");
       return NextResponse.json({ storage: "pinata", cid: data.IpfsHash, size, name, description, url: `https://gateway.pinata.cloud/ipfs/${data.IpfsHash}` });
-    } catch (err) {
+    } catch {
       // fall through to HFS
     }
   }
