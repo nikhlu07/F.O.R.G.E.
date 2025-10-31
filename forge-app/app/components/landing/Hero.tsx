@@ -135,7 +135,7 @@ export const Hero = () => {
           variants={itemVariants}
           className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <Link href="https://github.com"
+          <Link href="https://github.com/nikhlu07/F.O.R.G.E."
             target="_blank" className="px-6 py-3 text-base font-semibold text-black bg-cyan-400 rounded-full hover:bg-white transition-colors shadow-[0_0_20px_rgba(56,189,248,0.5)]">
             Under the Hood
           </Link>
