@@ -9,8 +9,10 @@ import VendorDashboard from "./components/VendorDashboard";
 import AuditorDashboard from "./components/AuditorDashboard";
 import AIAuditorDashboard from "./components/AIAuditorDashboard";
 import { CitizenDashboard } from "./components/CitizenDashboard";
+import HederaAuditWidget from "../components/HederaAuditWidget"; // <-- Import widget
 import { Header } from '../components/landing/Header';
 import { Footer } from '../components/landing/Footer';
+import FlowOrchestrator from "../components/FlowOrchestrator";
 
 // Unifying Role type based on login page
 type Role = "government" | "vendor" | "auditor" | "admin" | "citizen" | null;
@@ -28,10 +30,12 @@ export default function DemoPage() {
     const govType = localStorage.getItem("governmentType") as GovernmentType;
 
     if (!token || !role) {
-      router.push('/login');
+      // No auth: default to citizen for a smooth demo without a login channel
+      setActiveRole("citizen");
+      setIsLoading(false);
       return;
     }
-    
+
     setActiveRole(role);
     if (role === "government") {
       setGovernmentType(govType);
@@ -115,6 +119,12 @@ export default function DemoPage() {
             {/* Dashboard Content */}
             <div className="max-w-7xl mx-auto bg-black/50 rounded-2xl shadow-2xl overflow-hidden">
               {renderDashboard()}
+            </div>
+
+            {/* Hedera Audit Demo */}
+            <div className="max-w-7xl mx-auto mt-10">
+              <HederaAuditWidget />
+              <FlowOrchestrator />
             </div>
           </div>
         </section>

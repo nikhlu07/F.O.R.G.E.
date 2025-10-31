@@ -1,39 +1,37 @@
 "use client";
 
 import { useState } from "react";
-import { ShieldCheckIcon, BuildingOffice2Icon, EyeIcon, UserCircleIcon, UserGroupIcon } from '@heroicons/react/24/outline';
-import { Reveal } from '../components/Animations';
-import { Header } from '../components/landing/Header';
-import { Footer } from '../components/landing/Footer';
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
+import { Reveal } from "../components/Animations";
+import { Header } from "../components/landing/Header";
+import { Footer } from "../components/landing/Footer";
 
-type Role = "government" | "vendor" | "auditor" | "admin" | "citizen";
-type GovernmentType = "central" | "state" | "deputy";
+// Role and government type definitions
+type Role = "government" | "vendor" | "auditor" | "admin" | "citizen" | null;
+type GovernmentType = "central" | "state" | "deputy" | null;
 
 export default function LoginPage() {
-  const [activeRole, setActiveRole] = useState<Role>("government");
-  const [governmentType, setGovernmentType] = useState<GovernmentType>("central");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const router = useRouter();
+  const [selectedRole, setSelectedRole] = useState<Role>(null);
+  const [govType, setGovType] = useState<GovernmentType>(null);
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Logging in with:", { email, password, role: activeRole, ...(activeRole === "government" && { governmentType }) });
+  const handleContinue = () => {
+    if (!selectedRole) return;
 
-    // Simulate a successful login by setting a token and role
-    localStorage.setItem("authToken", "dummy-token-for-demo");
-    localStorage.setItem("userRole", activeRole);
-    if (activeRole === "government") {
-      localStorage.setItem("governmentType", governmentType);
+    // Persist a simple demo-auth token and role info
+    localStorage.setItem("authToken", "demo-token");
+    localStorage.setItem("userRole", selectedRole);
+    if (selectedRole === "government" && govType) {
+      localStorage.setItem("governmentType", govType);
     } else {
       localStorage.removeItem("governmentType");
     }
 
-
-    router.push('/demo');
-
+    router.push("/demo");
   };
+
+  const isContinueDisabled =
+    !selectedRole || (selectedRole === "government" && !govType);
 
   return (
     <div className="font-inter bg-[#0A0A0A] text-[#EAEAEA]">
@@ -42,97 +40,87 @@ export default function LoginPage() {
         <section id="login" className="py-16 lg:py-24 bg-black">
           <Reveal>
             <div className="container mx-auto px-6">
-              <div className="text-center pb-16">
-                <p className="section-title">LOGIN</p>
+              <div className="text-center pb-12">
+                <p className="section-title">ROLE-BASED ACCESS</p>
                 <h2 className="text-4xl md:text-6xl font-extrabold tracking-tighter text-white mt-4">
-                  Access Your Dashboard
+                  Choose Your Role
                 </h2>
                 <p className="mt-6 text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
-                  Please enter your credentials and select your role to continue.
+                  Select a role to access the appropriate dashboard. Government users can choose their unit.
                 </p>
               </div>
 
-              <div className="max-w-lg mx-auto">
-                {/* Role Switcher */}
-                <div className="mb-8">
-                  <div className="flex justify-center gap-1 p-1 border-gray-800 rounded-full">
-                      <RoleButton name="Government" icon={<ShieldCheckIcon className="w-5 h-5" />} role="government" activeRole={activeRole} onClick={setActiveRole} />
-                      <RoleButton name="Vendor" icon={<BuildingOffice2Icon className="w-5 h-5" />} role="vendor" activeRole={activeRole} onClick={setActiveRole} />
-                      <RoleButton name="Auditor" icon={<EyeIcon className="w-5 h-5" />} role="auditor" activeRole={activeRole} onClick={setActiveRole} />
-                      <RoleButton name="Admin" icon={<UserCircleIcon className="w-5 h-5" />} role="admin" activeRole={activeRole} onClick={setActiveRole} />
-                      <RoleButton name="Citizen" icon={<UserGroupIcon className="w-5 h-5" />} role="citizen" activeRole={activeRole} onClick={setActiveRole} />
+              {/* Role selector */}
+              <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
+                {[
+                  { key: "government", label: "Government" },
+                  { key: "vendor", label: "Vendor" },
+                  { key: "auditor", label: "Auditor" },
+                  { key: "admin", label: "Admin" },
+                  { key: "citizen", label: "Citizen" },
+                ].map((r) => (
+                  <button
+                    key={r.key}
+                    onClick={() => {
+                      setSelectedRole(r.key as Role);
+                      if (r.key !== "government") setGovType(null);
+                    }}
+                    type="button"
+                    aria-pressed={selectedRole === r.key}
+                    title={`Select ${r.label} role`}
+                    className={`px-5 py-4 rounded-xl border transition-all duration-200 text-left cursor-pointer hover:border-cyan-300 hover:bg-gray-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 ${
+                      selectedRole === r.key
+                        ? "border-cyan-400 bg-cyan-400/10"
+                        : "border-gray-700 bg-gray-900"
+                    }`}
+                  >
+                    <span className="block text-white font-semibold">{r.label}</span>
+                    <span className="block text-gray-400 text-sm">{r.key}</span>
+                  </button>
+                ))}
+              </div>
+
+              {/* Government sub-selection */}
+              {selectedRole === "government" && (
+                <div className="max-w-3xl mx-auto mt-8">
+                  <p className="text-gray-300 mb-3">Select government type:</p>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    {[
+                      { key: "central", label: "Central" },
+                      { key: "state", label: "State" },
+                      { key: "deputy", label: "Deputy" },
+                    ].map((g) => (
+                      <button
+                        key={g.key}
+                        onClick={() => setGovType(g.key as GovernmentType)}
+                        type="button"
+                        aria-pressed={govType === g.key}
+                        title={`Select ${g.label} government`}
+                        className={`px-4 py-3 rounded-xl border transition-all duration-200 text-left cursor-pointer hover:border-cyan-300 hover:bg-gray-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 ${
+                          govType === g.key
+                            ? "border-cyan-400 bg-cyan-400/10"
+                            : "border-gray-700 bg-gray-900"
+                        }`}
+                      >
+                        <span className="block text-white font-semibold">{g.label}</span>
+                        <span className="block text-gray-400 text-sm">{g.key}</span>
+                      </button>
+                    ))}
                   </div>
                 </div>
+              )}
 
-                {/* Login Form */}
-                <form onSubmit={handleLogin} className="space-y-6 bg-black/50 border border-gray-800 rounded-2xl p-8 shadow-2xl shadow-cyan-500/10">
-                  {activeRole === 'government' && (
-                    <div>
-                      <label htmlFor="governmentType" className="block text-sm font-medium text-gray-300">
-                        Government Type
-                      </label>
-                      <div className="mt-1">
-                        <select
-                          id="governmentType"
-                          name="governmentType"
-                          required
-                          value={governmentType}
-                          onChange={(e) => setGovernmentType(e.target.value as GovernmentType)}
-                          className="appearance-none block w-full px-3 py-2 border border-gray-700 rounded-md shadow-sm placeholder-gray-500 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm bg-gray-900 text-white"
-                        >
-                          <option value="central">Central</option>
-                          <option value="state">State</option>
-                          <option value="deputy">Deputy</option>
-                        </select>
-                      </div>
-                    </div>
-                  )}
-
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-300">
-                      Email Address
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        autoComplete="email"
-                        required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="appearance-none block w-full px-3 py-2 border border-gray-700 rounded-md shadow-sm placeholder-gray-500 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm bg-gray-900 text-white"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label htmlFor="password" className="block text-sm font-medium text-gray-300">
-                      Password
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        id="password"
-                        name="password"
-                        type="password"
-                        autoComplete="current-password"
-                        required
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className="appearance-none block w-full px-3 py-2 border border-gray-700 rounded-md shadow-sm placeholder-gray-500 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm bg-gray-900 text-white"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <button
-                      type="submit"
-                      className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-black bg-cyan-500 hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 focus:ring-offset-gray-900 transition-all duration-300 shadow-[0_0_20px_rgba(56,189,248,0.5)]"
-                    >
-                      Login
-                    </button>
-                  </div>
-                </form>
+              <div className="max-w-3xl mx-auto mt-10">
+                <button
+                  onClick={handleContinue}
+                  disabled={isContinueDisabled}
+                  className="w-full bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-semibold py-3 px-6 rounded-lg hover:from-cyan-500 hover:to-blue-600 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Continue
+                </button>
+                <p className="mt-4 text-sm text-gray-400 text-center">
+                  Your selection sets a demo token and routes to the appropriate dashboard.
+                </p>
               </div>
             </div>
           </Reveal>
@@ -142,18 +130,3 @@ export default function LoginPage() {
     </div>
   );
 }
-
-const RoleButton = ({ name, icon, role, activeRole, onClick }: { name: string, icon: React.ReactNode, role: Role, activeRole: Role, onClick: (role: Role) => void }) => (
-  <button
-    type="button"
-    onClick={() => onClick(role)}
-    className={`flex items-center justify-center gap-2 px-4 py-2 text-sm font-semibold rounded-full transition-all duration-300 ${
-      activeRole === role
-        ? "bg-cyan-500 text-black shadow-[0_0_15px_rgba(56,189,248,0.4)]"
-        : "text-gray-300 hover:bg-white/10"
-    }`}
-  >
-    {icon}
-    <span>{name}</span>
-  </button>
-);

@@ -58,7 +58,7 @@ export default function Home() {
                   <SectionTitle>CASE STUDIES: REAL-WORLD IMPACT</SectionTitle>
                   <SectionHeading>From Theory to Reality.</SectionHeading>
                   <SectionDescription>
-                    Corruption isn&apos;t abstract. It has real victims. Here’s how F.O.R.G.E. would rewrite the story in common scenarios of graft.
+                    Corruption isn&apos;t abstract. It has real victims. We start with NGOs—where transparency mandates and fast decision cycles enable rapid impact—then scale to government.
                   </SectionDescription>
                 </div>
                 <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
